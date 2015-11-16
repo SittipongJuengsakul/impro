@@ -47,7 +47,7 @@ class HomeController extends Controller
         if (Auth::check())
         {
         //qury year from table "tdl_1d" for select year data (if tdl_1d delete DATADASE ERROR !!) 
-        $years = DB::table('tbl_1d')->select('year')->groupBy('year')->get();
+        $years = DB::table('tbl_ahu_b1')->select('year')->groupBy('year')->get();
 
         return view('estimate_form',['year' => $years]);
         }
