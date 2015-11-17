@@ -31,7 +31,7 @@ class HomeController extends Controller
     public function showdata(){
         if (Auth::check())
         {
-            $years = DB::table('tbl_1d')->groupBy('year')->get();
+            $years = DB::table('tbl_ahu_b1')->groupBy('year')->get();
             $meters = DB::table('groupmeter')
                     ->select('groupName')
                     ->get();
@@ -47,7 +47,7 @@ class HomeController extends Controller
         if (Auth::check())
         {
         //qury year from table "tdl_1d" for select year data (if tdl_1d delete DATADASE ERROR !!) 
-        $years = DB::table('tbl_1d')->select('year')->groupBy('year')->get();
+        $years = DB::table('tbl_ahu_b1')->select('year')->groupBy('year')->get();
 
         return view('estimate_form',['year' => $years]);
         }
@@ -132,7 +132,7 @@ class HomeController extends Controller
             DB::update('update estimate_electriccity set estimate = ?,Ft = ? where month = ? and year = ? ', [$estimate,$Ft,$i,$year]);
         }
 
-        $years = DB::table('tbl_1d')->select('year')->groupBy('year')->get();
+        $years = DB::table('tbl_ahu_b1')->select('year')->groupBy('year')->get();
 
         return redirect('user/form_estimate')->with('years');
         }
@@ -195,7 +195,7 @@ class HomeController extends Controller
             DB::update('update estimate_tool set estimate = ? where mdd_id = ? and month = ? and year = ? ', [$estimate,$id,$month,$year]);
         }
       
-        $years = DB::table('tbl_1d')->select('year')->groupBy('year')->get();
+        $years = DB::table('tbl_ahu_b1')->select('year')->groupBy('year')->get();
 
         return view('estimatetool_form',['year' => $years]);
 		}
@@ -208,7 +208,7 @@ class HomeController extends Controller
         if (Auth::check())
         {
         //qury year from table "tdl_1d" for select year data (if tdl_1d delete DATADASE ERROR !!) 
-        $years = DB::table('tbl_1d')->select('year')->groupBy('year')->get();
+        $years = DB::table('tbl_ahu_b1')->select('year')->groupBy('year')->get();
 
         return view('estimatetool_form',['year' => $years]);
 		}
