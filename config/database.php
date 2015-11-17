@@ -52,7 +52,7 @@ return [
             'database'  => env('DB_DATABASE', 'impro_new'),
             //'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'username'  => env('DB_USERNAME', 'root'),
-            'password'  => env('DB_PASSWORD', ''),
+            'password'  => env('DB_PASSWORD', 'root'),
             'charset'   => 'utf8',
             'collation' => 'utf8_general_ci',
             'prefix'    => '',
