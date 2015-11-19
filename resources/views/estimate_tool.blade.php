@@ -55,7 +55,7 @@
 					<table class="table table-hover">
 					    <thead>
 					      <tr>
-					        <th  width="20%">ชื่ออุปกรณ์</th>
+					        <th  width="50%">ชื่ออุปกรณ์</th>
 					        <th  width="50%">เป้าหมาย (kWh)</th>
 					      </tr>
 					    </thead>
