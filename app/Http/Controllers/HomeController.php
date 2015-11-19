@@ -149,11 +149,11 @@ class HomeController extends Controller
         $month = Input::get('month');
 
         // Check have month and year in Database
-        $results = DB::select('select * from estimate_tool where year = ? and month = ?',[$year,$month]);
+        $results = DB::select('SELECT * from estimate_tool where year = ? and month = ?',[$year,$month]);
         //get data tool 
-        $results1 = DB::select('SELECT matchdatadisplay.mdd_id,matchdatadisplay.groupName,estimate_tool.year,estimate_tool.month,estimate_tool.estimate FROM estimate_tool JOIN matchdatadisplay on matchdatadisplay.mdd_id = estimate_tool.mdd_id where estimate_tool.year = ? and estimate_tool.month = ? AND matchdatadisplay.status = 1',[$year,$month]);
+        $results1 = DB::select('SELECT matchdatadisplay.mdd_id,matchdatadisplay.groupName,estimate_tool.year,estimate_tool.month,estimate_tool.estimate FROM estimate_tool JOIN matchdatadisplay ON matchdatadisplay.mdd_id = estimate_tool.mdd_id WHERE estimate_tool.year = ? and estimate_tool.month = ? AND matchdatadisplay.status = 1',[$year,$month]);
         //get idtool   
-        $results2 = DB::select('select * FROM matchdatadisplay');
+        $results2 = DB::select('SELECT * FROM matchdatadisplay');
        // echo "<pre>";
        // print_r($results2);die();
 
@@ -166,12 +166,23 @@ class HomeController extends Controller
             }
 
             //get data tool
-            $results3 = DB::select('SELECT matchdatadisplay.mdd_id,matchdatadisplay.groupName,estimate_tool.year,estimate_tool.month,estimate_tool.estimate FROM estimate_tool JOIN matchdatadisplay on matchdatadisplay.mdd_id = estimate_tool.mdd_id where estimate_tool.year = ? and estimate_tool.month = ? AND matchdatadisplay.status = 1',[$year,$month]);
+            $results3 = DB::select('SELECT matchdatadisplay.mdd_id,matchdatadisplay.groupName,estimate_tool.year,estimate_tool.month,estimate_tool.estimate FROM estimate_tool JOIN matchdatadisplay ON matchdatadisplay.mdd_id = estimate_tool.mdd_id WHERE estimate_tool.year = ? and estimate_tool.month = ? AND matchdatadisplay.status = 1',[$year,$month]);
             
             return view('estimate_tool',['results' => $results3,'year' => $year,'month' => $month]);
         }else{
-           
-            return view('estimate_tool',['results' => $results1,'year' => $year,'month' => $month]);
+            if(count($results2) == count($results)){
+                return view('estimate_tool',['results' => $results1,'year' => $year,'month' => $month]);
+            }else{
+                foreach ($results2 as $key) {
+                    $check = DB::select('SELECT * FROM estimate_tool WHERE year = ? AND month = ? AND mdd_id = ?',[$year,$month,$key->mdd_id]);
+                    //print_r($check);
+                    if($check == NULL){
+                       DB::insert('insert into estimate_tool (month,year,estimate,mdd_id) values (?,?,?,?)', [$month,$year,0,$key->mdd_id]); 
+                    }
+                }
+                $results4 = DB::select('SELECT matchdatadisplay.mdd_id,matchdatadisplay.groupName,estimate_tool.year,estimate_tool.month,estimate_tool.estimate FROM estimate_tool JOIN matchdatadisplay ON matchdatadisplay.mdd_id = estimate_tool.mdd_id WHERE estimate_tool.year = ? and estimate_tool.month = ? AND matchdatadisplay.status = 1  GROUP BY estimate_tool.mdd_id ASC',[$year,$month]);
+                return view('estimate_tool',['results' => $results4,'year' => $year,'month' => $month]);
+            }
         }
 		}
 		else{
