@@ -1,3 +1,91 @@
+//slider
+var win = $(window);
+            $(document).ready(function () {
+                var container = $("#container");
+                var sudoSlider = $("#slider").sudoSlider({
+                    effect: "fade",
+                    pause: 3000,
+                    auto:true,
+                    responsive: true,
+                    prevNext: false,
+                    continuous: true,
+                    autoHeight: false,
+                    touch: true,
+                    customLink: ".sudoSliderLink",
+                    updateBefore: true
+                });
+
+                win.on("resize blur focus", function () {
+                    var height = win.height();
+                    sudoSlider.height(height);
+                    container.height(height);
+                }).resize();
+
+
+                sudoSlider.find(".slide").each(function () {
+                    var slide = $(this);
+                    var imageSrc = slide.attr("data-background");
+                    if (!imageSrc) {
+                        return;
+                    }
+                    $("<img />").attr("src", imageSrc).properload(function () {
+                        var backgroundImage = $(this);
+                        var imageHeight = backgroundImage[0].naturalHeight;
+                        var imageWidth = backgroundImage[0].naturalWidth;
+
+                        if (!imageHeight) {
+                            var img = new Image();
+                            img.src = imageSrc;
+                            imageWidth = img.width;
+                            imageHeight = img.height;
+
+                        }
+
+                        var aspectRatio = imageWidth / imageHeight;
+
+                        backgroundImage.appendTo(slide);
+
+                        slide.css({
+                            zIndex: 0
+                        });
+
+                        backgroundImage.css({
+                            position: "absolute",
+                            zIndex: -1,
+                            top: 0,
+                            left: 0
+                        });
+
+                        win.on("resize blur focus", function () {
+                            var sliderWidth = sudoSlider.width();
+                            var sliderHeight = sudoSlider.height();
+                            if ((sliderWidth / sliderHeight) < aspectRatio ) {
+                                var leftMargin = ((sliderWidth - (sliderHeight * aspectRatio)) / 2) + "px";
+                                backgroundImage.css({
+                                    top: 0,
+                                    left: leftMargin,
+                                    width: sliderHeight * aspectRatio,
+                                    height: sliderHeight
+                                });
+                            } else {
+                                backgroundImage.css({
+                                    left: 0,
+                                    top: ((sliderHeight - (sliderWidth / aspectRatio)) / 2) + "px",
+                                    height: sliderWidth / aspectRatio,
+                                    width: sliderWidth
+                                });
+                            }
+                        }).resize();
+
+                    }, true);
+                });
+            });
+    if(window.top==window) {
+        window.setTimeout('location.reload()', 900000); //Reloads after 15 min
+    }
+    else {
+
+    }
 function BuildingAll(b1,b2,b3456,b7,other){
     // Build the chart
                 $('#container-TotalAll').highcharts({
