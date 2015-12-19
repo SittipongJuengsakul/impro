@@ -1,7 +1,6 @@
 @extends('app')
 
 @section('title', 'แสดงข้อมูลการใช้พลังงานไฟฟ้า')
-
 @section('content')
 <div id="container" style="margin: 0;">
     <div id="slider">
@@ -75,7 +74,8 @@
     @include('slide.building_7')
     <!-- Add Building other Area -->
     @include('slide.building_other')
-
+    <!-- Chiller Plant -->
+    @include('slide.chillerplant')
     </div>
 </div>
 
