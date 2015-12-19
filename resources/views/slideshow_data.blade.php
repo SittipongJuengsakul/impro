@@ -10,9 +10,9 @@
                   <div class="col-md-3" style="margin-top: 50px;padding-left:20px"><h1>พลังงานไฟฟ้าที่ใช้</h1>
                   <h2 style="margin-top: 0px;">เดือน <?
                     $score = 4;
-                     
+
                     switch( $thismonth ) {
-                     
+
                         case 1 : $month= "มกราคม"; break;
                         case 2 : $month= "กุมภาพันธ์"; break;
                         case 3 : $month= "มีนาคม"; break;
@@ -27,9 +27,9 @@
                         case 12 : $month= "ธันวาคม"; break;
 
                         default : $month= ""; break;
-                         
+
                     }
-                     
+
                     echo $month;?> {{ Carbon\Carbon::now()->format('Y')+543 }}</h2>
                     <table class="table" style="width:100%;">
                         <thead>
@@ -179,8 +179,7 @@ var win = $(window);
         window.setTimeout('location.reload()', 900000); //Reloads after 15 min
     }
     else {
-        
+
     }
     </script>
 @stop
-
