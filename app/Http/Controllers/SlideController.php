@@ -46,6 +46,7 @@ class SlideController extends Controller
         $bOther = TBL::BuildingOther($thisyear,$thismonth);
         //ประกาศค่า building รวม
         $Building = array($b1,$b2,$b3,$b7,$bOther);
+        
         //------------------- ข้อมูลตึก 1 ----------------------
         $est_building1 = 10000;
         $ftEst_building1 = 7.62;
