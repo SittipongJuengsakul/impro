@@ -49,7 +49,7 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'impro_new'),
+            'database'  => env('DB_DATABASE', 'impro'),
             //'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'username'  => env('DB_USERNAME', 'root'),
             'password'  => env('DB_PASSWORD', 'root'),
