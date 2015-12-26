@@ -3,9 +3,9 @@
                   <div class="col-md-3" style="margin-top: 50px;padding-left:20px"><h1>ค่าไฟฟ้าอาคาร 1</h1>
                   <h2 style="margin-top: 0px;">เดือน <?
                     $score = 4;
-                     
+
                     switch( $thismonth ) {
-                     
+
                         case 1 : $month= "มกราคม"; break;
                         case 2 : $month= "กุมภาพันธ์"; break;
                         case 3 : $month= "มีนาคม"; break;
@@ -18,11 +18,10 @@
                         case 10 : $month= "ตุลาคม"; break;
                         case 11 : $month= "พฤศจิกายน"; break;
                         case 12 : $month= "ธันวาคม"; break;
-
                         default : $month= ""; break;
-                         
+
                     }
-                     
+
                     echo $month;?> {{ Carbon\Carbon::now()->format('Y')+543 }}</h2>
                     <table class="table" style="width:100%;">
                         <thead>
@@ -34,20 +33,19 @@
                         <tbody>
                             <tr>
                                 <td width="50%">เป้าหมาย</td>
-                                <td width="50%">{{ $Building1_arr[1] }} kWh</td>
+                                <td width="50%" id="building1_est"></td>
                             </tr>
                             <tr>
                                 <td>ปัจจุบันใช้</td>
-                                <td>{{ $kwh_b1 = number_format($Building[0], 2) }} kWh</td>
+                                <td id="building1_current"></td>
                             </tr>
                             <tr>
                                 <td>เป็นเงิน</td>
-                                <?php $money = $Building[0]*$Building1_arr[0] ?>
-                                <td>{{ number_format($money, 2) }} บาท</td>
+                                <td id="building1_money"></td>
                             </tr>
                             <tr>
                                 <td>ประมาณการเมื่อถึงสิ้นเดือน</td>
-                                <td>{{ number_format($Building1_arr[5], 2) }} kWh</td>
+                                <td id="building1_esttomonth"></td>
                             </tr>
                         </tbody>
                     </table>
