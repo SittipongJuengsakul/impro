@@ -7,7 +7,7 @@ use App\tbl_query as TBL;
 use App\phphighchart as HC;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Response;
 class SlideController extends Controller
 {
 	/**
@@ -46,55 +46,46 @@ class SlideController extends Controller
         $bOther = TBL::BuildingOther($thisyear,$thismonth);
         //ประกาศค่า building รวม
         $Building = array($b1,$b2,$b3,$b7,$bOther);
-        
-        //------------------- ข้อมูลตึก 1 ----------------------
-        $est_building1 = 10000;
-        $ftEst_building1 = 7.62;
-        $tbl_LP_B1 = TBL::tbl_LP_B1($thisyear,$thismonth);
-        $tbl_AIR_B1 = TBL::tbl_AIR_B1($thisyear,$thismonth);
-        $tbl_Other_B1 = TBL::tbl_Other_B1($thisyear,$thismonth);
-        $dayB = TBL::avg_B1($thisyear,$thismonth)*(30-$thisday);
-        $avg_B1 = $Building[0]+$dayB;
-        $Building1_arr = array($ftEst_building1,$est_building1,$tbl_LP_B1,$tbl_AIR_B1,$tbl_Other_B1,$avg_B1);
-        //------------------- ข้อมูลตึก 2 ----------------------
-        $est_building2 = 20000;
-        $ftEst_building2 = 7.62;
-        $tbl_LP_B2 = TBL::tbl_LP_B2($thisyear,$thismonth);
-        $tbl_AIR_B2 = TBL::tbl_AIR_B2($thisyear,$thismonth);
-        $tbl_Other_B2 = TBL::tbl_Other_B2($thisyear,$thismonth);
-        $dayB = TBL::avg_B2($thisyear,$thismonth)*(30-$thisday);
-        $avg_B2 = $Building[0]+$dayB;
-        $Building2_arr = array($ftEst_building2,$est_building2,$tbl_LP_B2,$tbl_AIR_B2,$tbl_Other_B2,$avg_B2);
-        //------------------- ข้อมูลตึก 3 4 5 6 ----------------------
-        $est_building3 = 30000;
-        $ftEst_building3 = 7.62;
-        $tbl_LP_B3 = TBL::tbl_LP_B3($thisyear,$thismonth);
-        $tbl_AIR_B3 = TBL::tbl_AIR_B3($thisyear,$thismonth);
-        $tbl_Other_B3 = TBL::tbl_Other_B3($thisyear,$thismonth);
-        $dayB = TBL::avg_B3($thisyear,$thismonth)*(30-$thisday);
-        $avg_B3 = $Building[0]+$dayB;
-        $Building3_arr = array($ftEst_building3,$est_building3,$tbl_LP_B3,$tbl_AIR_B3,$tbl_Other_B3,$avg_B3);
-        //------------------- ข้อมูลตึก 7 ----------------------
-        $est_building7 = 70000;
-        $ftEst_building7 = 7.62;
-        $tbl_LP_B7 = TBL::tbl_LP_B7($thisyear,$thismonth);
-        $tbl_AIR_B7 = TBL::tbl_AIR_B7($thisyear,$thismonth);
-        $tbl_Other_B7 = TBL::tbl_Other_B7($thisyear,$thismonth);
-        $dayB = TBL::avg_B7($thisyear,$thismonth)*(30-$thisday);
-        $avg_B7 = $Building[0]+$dayB;
-        $Building7_arr = array($ftEst_building7,$est_building7,$tbl_LP_B7,$tbl_AIR_B7,$tbl_Other_B7,$avg_B7);
 
-        //------------------- ข้อมูลตึก Other ----------------------
-        $est_buildingOther = 100000;
-        $ftEst_buildingOther = 7.62;
-        $tbl_LP_BOther = TBL::tbl_LP_BOther($thisyear,$thismonth);
-        $tbl_AIR_BOther = TBL::tbl_AIR_BOther($thisyear,$thismonth);
-        $tbl_Other_BOther = TBL::tbl_Other_BOther($thisyear,$thismonth);
-        $dayB = TBL::avg_BOther($thisyear,$thismonth)*(30-$thisday);
-        $avg_BOther = $Building[0]+$dayB;
-        $BuildingOther_arr = array($ftEst_buildingOther,$est_buildingOther,$tbl_LP_BOther,$tbl_AIR_BOther,$tbl_Other_BOther,$avg_BOther);
+        $Building1_arr = array(0,0,0,0,0,0);
+        return view('slideshow_data',compact('EstMonthtoUse','thismonth','All_Used','tbl_EstArray','totalEst','ftEst','Building','Building1_arr'));
 
-        //return TBL::avg_B1($thisyear,$thismonth);
-        return view('slideshow_data',compact('EstMonthtoUse','thismonth','All_Used','tbl_EstArray','totalEst','ftEst','Building','Building1_arr','Building2_arr','Building3_arr','Building7_arr','BuildingOther_arr'));
+      }
+
+        public function building_data($building_number)
+        {
+          //ปีปัจจุบัน
+      	$thisyear = Carbon::now()->format('Y');
+          //เดือนปัจจุบัน
+      	$thismonth =  (int)Carbon::now()->format('m');
+          //วันปัจจุบัน
+          $thisday =  (int)Carbon::now()->format('d');
+          $real_use = TBL::Building1($thisyear,$thismonth);
+          $est_building = 10000;
+          $ftEst_building = 7.62;
+          $tbl_LP_B = TBL::tbl_LP_B($building_number,$thisyear,$thismonth);
+          $tbl_AIR_B = TBL::tbl_AIR_B($building_number,$thisyear,$thismonth);
+          $tbl_Other_B = TBL::tbl_Other_B($building_number,$thisyear,$thismonth);
+          $dayB = TBL::avg_B($building_number,$thisyear,$thismonth,$thisday);
+          //$Building1_arr = array($ftEst_building1,$est_building1,$tbl_LP_B1,$tbl_AIR_B1,$tbl_Other_B1,$avg_B1);
+          try{
+                $statusCode = 200;
+                 $response = [
+                   'use_building' => number_format($real_use, 2),
+                   'est_building' => number_format($est_building, 2),
+                   'ftEst_building' => number_format($ftEst_building, 2),
+                   'endmonth_building' => number_format($real_use+$dayB, 2),
+                   'money_building' => number_format($real_use*$ftEst_building, 2),
+                   'avg_building' => $dayB,
+                   'other' => $tbl_Other_B,
+                   'elect' => $tbl_LP_B,
+                   'air' => $tbl_AIR_B,
+                   'other' => $tbl_Other_B,
+                 ];
+         }catch (Exception $e){
+             $statusCode = 400;
+         }finally{
+             return Response::json($response, $statusCode);
+         }
         }
 }

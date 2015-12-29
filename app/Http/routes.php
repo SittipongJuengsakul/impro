@@ -20,17 +20,7 @@ Route::controllers([
 	'password' => 'Auth\PasswordController'
 ]);
 Route::get('user/slideshow','SlideController@slideshowdata');
-//Route::get('user/test','SlideController@testSocket');
-
-Route::get('fire', function () {
-    // this fires the event
-    event(new App\Events\UpdateTotalTbl());
-    return "event fired";
-});
-
-Route::get('test', function () {
-    return view('test');
-});
+Route::get('user/slideshow/building_data/{building}','SlideController@building_data');
 
 Route::get('user/report','HomeController@showdata');
 Route::post('user/submit','HomeController@submit');

@@ -3,12 +3,12 @@
 namespace App;
 use DB;
 use Illuminate\Database\Eloquent\Model;
-
+use Schema;
 class tbl_query extends Model
 {
 
 	/**
-     * get groupname like (%Total%) of matchdatadisplay table 
+     * get groupname like (%Total%) of matchdatadisplay table
      *
      * @return data table total of record in json array
      */
@@ -18,7 +18,7 @@ class tbl_query extends Model
     	->get();
     }
     /**
-     * get groupname of matchdatadisplay table 
+     * get groupname of matchdatadisplay table
      *
      * @return data of record in json array
      */
@@ -46,8 +46,8 @@ class tbl_query extends Model
         $mdd_data = 0;//
         $newname = "'".$nametbl."'";
         $mddid = DB::table('matchdatadisplay')->select('mdd_id')->where('groupname',$nametbl)->get();
-        foreach($mddid as $mdd_ids) { 
-            $mdd_data = $mdd_ids->mdd_id; 
+        foreach($mddid as $mdd_ids) {
+            $mdd_data = $mdd_ids->mdd_id;
         }
         $before_data = DB::table('estimate_tool')->where('estimate_tool.mdd_id',$mdd_data)
         ->where('estimate_tool.year',$year)->where('estimate_tool.month',$month)->get();
@@ -105,80 +105,61 @@ class tbl_query extends Model
         return $subA+$subB;
     }
 
-    //---------------- Building 1 ---------------------
-    //$tbl_LP_B1 = 
-    //$tbl_AIR_B1 = 
-     //$tbl_Other_B1 =
-    public static function avg_B1($year,$month){
-        return DB::table('tbl_mea_b1')->where('year',$year)->where('month',$month)->avg('consumption');
-        //return 200;// ตาราง tbl_LP_B1 ไม่มี
+    //---------------- Building  ---------------------
+    public static function avg_B($building_number,$year,$month,$thisday){
+      $table = 'tbl_mea_b'.$building_number;
+      $check = Schema::hasTable($table);
+      if(!$check){
+        return 0;
+      }else{
+        $valAvg = DB::table($table)->where('year',$year)->where('month',$month)->sum('consumption');
+        $valAvg = $valAvg/$thisday;
+        return $valAvg;
+      }
     }
-    public static function tbl_LP_B1($year,$month){
-        //return DB::table('tbl_mea_b1')->where('year',$year)->where('month',$month)->sum('consumption');
-        return 200;// ตาราง tbl_LP_B1 ไม่มี
+    //ไฟฟ้า ตึก
+    public static function tbl_LP_B($building_number,$year,$month){
+        $table = 'tbl_pb'.$building_number;
+        $check = Schema::hasTable($table);
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table($table)->where('year',$year)->where('month',$month)->avg('consumption');
+        }
     }
-    public static function tbl_AIR_B1($year,$month){
-        return DB::table('tbl_aircon_b1')->where('year',$year)->where('month',$month)->sum('consumption');
-        //return 200;// ตาราง tbl_LP_B1 ไม่มี
+    // แอร์ ตึก
+    public static function tbl_AIR_B($building_number,$year,$month){
+        $table = 'tbl_aircon_b'.$building_number;
+        $check = Schema::hasTable($table);
+        if(!$check){
+          return 0;
+        }else{
+            return DB::table($table)->where('year',$year)->where('month',$month)->sum('consumption');
+        }
     }
-    public static function tbl_Other_B1($year,$month){
-        //return DB::table('tbl_mea_b1')->where('year',$year)->where('month',$month)->sum('consumption');
-        return 200;// ตาราง tbl_LP_B1 ไม่มี
-    }
-    //---------------- Building 2 ---------------------
-    public static function avg_B2($year,$month){
-        //return DB::table('tbl_mea_b2')->where('year',$year)->where('month',$month)->avg('consumption');
-        return 90;// ตาราง tbl_mea_b2 ไม่มี
-    }
-    public static function tbl_LP_B2($year,$month){
-        //return DB::table('tbl_LP_B2')->where('year',$year)->where('month',$month)->sum('consumption');
-        return 200;// ตาราง tbl_LP_B2 ไม่มี
-    }
-    public static function tbl_AIR_B2($year,$month){
-        //return DB::table('tbl_aircon_b2')->where('year',$year)->where('month',$month)->sum('consumption');
-        return 100;// ตาราง aircon_b2 ไม่มี
-    }
-    public static function tbl_Other_B2($year,$month){
-        //return DB::table('tbl_Other_B2')->where('year',$year)->where('month',$month)->sum('consumption');
-        return 20;// ตาราง tbl_Other_B2 ไม่มี
-    }
-    //---------------- Building 3 ---------------------
-    public static function avg_B3($year,$month){
-        return 40;// ตาราง tbl_mea_b2 ไม่มี
-    }
-    public static function tbl_LP_B3($year,$month){
-        return 50;// ตาราง tbl_LP_B2 ไม่มี
-    }
-    public static function tbl_AIR_B3($year,$month){
-        return 10;// ตาราง aircon_b2 ไม่มี
-    }
-    public static function tbl_Other_B3($year,$month){
-        return 20;// ตาราง tbl_Other_B2 ไม่มี
-    }
-    //---------------- Building 7 ---------------------
-    public static function avg_B7($year,$month){
-        return 20;// ตาราง tbl_mea_b2 ไม่มี
-    }
-    public static function tbl_LP_B7($year,$month){
-        return 30;// ตาราง tbl_LP_B2 ไม่มี
-    }
-    public static function tbl_AIR_B7($year,$month){
-        return 100;// ตาราง aircon_b2 ไม่มี
-    }
-    public static function tbl_Other_B7($year,$month){
-        return 20;// ตาราง tbl_Other_B2 ไม่มี
-    }
-    //---------------- Building Other ---------------------
-    public static function avg_BOther($year,$month){
-        return 30;// ตาราง tbl_mea_b2 ไม่มี
-    }
-    public static function tbl_LP_BOther($year,$month){
-        return 40;// ตาราง tbl_LP_B2 ไม่มี
-    }
-    public static function tbl_AIR_BOther($year,$month){
-        return 30;// ตาราง aircon_b2 ไม่มี
-    }
-    public static function tbl_Other_BOther($year,$month){
-        return 20;// ตาราง tbl_Other_B2 ไม่มี
+    // อื่นๆ ตึก
+    public static function tbl_Other_B($building_number,$year,$month){
+      $table = 'tbl_building_b'.$building_number;
+      $check_1 = Schema::hasTable($table);
+      if(!$check_1){
+        $tb1 = 0;
+      }else{
+        $tb1 = DB::table($table)->where('year',$year)->where('month',$month)->sum('consumption');
+      }
+      $table = 'tbl_pb'.$building_number;
+      $check_2 = Schema::hasTable($table);
+      if(!$check_2){
+        $tb2 = 0;
+      }else{
+        $tb2 = DB::table($table)->where('year',$year)->where('month',$month)->sum('consumption');
+      }
+      $table = 'tbl_aircon_b'.$building_number;
+      $check_3 = Schema::hasTable($table);
+      if(!$check_3){
+        $tb3 = 0;
+      }else{
+        $tb3 = DB::table($table)->where('year',$year)->where('month',$month)->sum('consumption');
+      }
+      return $tb1-$tb2-$tb3;
     }
 }
