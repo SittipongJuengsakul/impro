@@ -66,7 +66,7 @@
 					        <td>{{ $key->groupName }}</td>
 					        <td>
 					        	<div class="input-group col-md-5">
-							  		<input type="number" class="form-control" aria-describedby="basic-addon2" value="{{ $key->estimate }}" name="est_<?php echo $i;?>"  required>
+							  		<input type="text" class="form-control" aria-describedby="basic-addon2" value="{{ number_format($key->estimate) }}" name="est_<?php echo $i;?>"  onblur="this.value=formatMoney(this.value);"required>
 							 		<span class="input-group-addon">kWh</span>
 								</div>
 							</td>
@@ -87,4 +87,38 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+<script>
+function formatMoney(inum){  // ฟังก์ชันสำหรับแปลงค่าตัวเลขให้อยู่ในรูปแบบ เงิน   
+    var s_inum=new String(inum);   
+    var num2=s_inum.split(".",s_inum);   
+    var l_inum=num2[0].length;   
+    var n_inum="";   
+    for(i=0;i<l_inum;i++){   
+        if(parseInt(l_inum-i)%3==0){   
+            if(i==0){   
+                n_inum+=s_inum.charAt(i);          
+            }else{   
+                n_inum+=","+s_inum.charAt(i);          
+            }      
+        }else{   
+            n_inum+=s_inum.charAt(i);   
+        }   
+    }   
+    if(num2[1]!=undefined){   
+        n_inum+="."+num2[1];   
+    }   
+    return n_inum;   
+}   
+
+$("input").focus(function() {
+  this.value = "";
+});
+</script>
+
+
+
 @stop
