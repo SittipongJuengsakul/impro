@@ -35,8 +35,8 @@ class tbl_query extends Model
      */
     public static function getDataInTbl($nametbl,$year,$month)
     {
-    	strtolower($nametbl);
-        return DB::table('tbl_'.$nametbl)
+    	  strtolower($nametbl);
+        return DB::table($nametbl)
         ->where('year',$year)->where('month',$month)->sum('consumption');
     }
 
@@ -45,16 +45,14 @@ class tbl_query extends Model
         $data = 0;//
         $mdd_data = 0;//
         $newname = "'".$nametbl."'";
-        $mddid = DB::table('matchdatadisplay')->select('mdd_id')->where('groupname',$nametbl)->get();
-        foreach($mddid as $mdd_ids) {
-            $mdd_data = $mdd_ids->mdd_id;
-        }
-        $before_data = DB::table('estimate_tool')->where('estimate_tool.mdd_id',$mdd_data)
-        ->where('estimate_tool.year',$year)->where('estimate_tool.month',$month)->get();
-        foreach ($before_data as $dt) {
-            $data = $dt->estimate;
-        }
-        return $data;
+        $mddid = DB::table('matchdatadisplay')->select('mdd_id')->where('tabledbname',$nametbl)->get();
+            //$mdd_data = $mdd_ids->mdd_id;
+        $before_data = DB::table('estimate_tool')
+        ->where('estimate_tool.mdd_id',$mddid[0]->mdd_id)
+        ->where('estimate_tool.year',$year)
+        ->where('estimate_tool.month',$month)->get();
+          //$data = $dt->estimate;
+        return $before_data[0]->estimate;
     }
     public static function getEstMonth($year,$month)
     {
@@ -106,14 +104,44 @@ class tbl_query extends Model
     }
 
     //---------------- Building  ---------------------
+    public static function realuse_building($building_number,$year,$month){
+        $table = 'tbl_building_b'.$building_number;
+        $check = Schema::hasTable($table);
+        if(!$check){
+          return 0;
+        }else {
+          return DB::table($table)
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
+    }
     public static function avg_B($building_number,$year,$month,$thisday){
-      $table = 'tbl_mea_b'.$building_number;
+      $table = 'tbl_building_b'.$building_number;
       $check = Schema::hasTable($table);
+      switch($month) {
+          case 1 : $thismonth= 31; break;
+          case 2 : $thismonth= 28; break;
+          case 3 : $thismonth= 31; break;
+          case 4 : $thismonth= 30; break;
+          case 5 : $thismonth= 31; break;
+          case 6 : $thismonth= 30; break;
+          case 7 : $thismonth= 31; break;
+          case 8 : $thismonth= 31; break;
+          case 9 : $thismonth= 30; break;
+          case 10 : $thismonth= 31; break;
+          case 11 : $thismonth= 30; break;
+          case 12 : $thismonth= 31; break;
+          default : $thismonth= 30; break;
+      }
       if(!$check){
         return 0;
       }else{
         $valAvg = DB::table($table)->where('year',$year)->where('month',$month)->sum('consumption');
-        $valAvg = $valAvg/$thisday;
+        $valAvg = $valAvg/$thisday;//หาค่าเฉลี่ยของเดือนนี้
+        $dayleft = $thismonth-$thisday;
+        if($dayleft<=1){
+          $dayleft=1;
+        }
+        $valAvg = $valAvg*$dayleft;
         return $valAvg;
       }
     }

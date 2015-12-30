@@ -34,20 +34,19 @@
                         <tbody>
                             <tr>
                                 <td width="50%">เป้าหมาย</td>
-                                <td width="50%">{{ $BuildingOther_arr[1] }} kWh</td>
+                                <td width="50%" id="buildingca_est"></td>
                             </tr>
                             <tr>
                                 <td>ปัจจุบันใช้</td>
-                                <td>{{ $kwh_b1 = number_format($Building[3], 2) }} kWh</td>
+                                <td id="buildingca_current"></td>
                             </tr>
                             <tr>
                                 <td>เป็นเงิน</td>
-                                <?php $money = $Building[3]*$BuildingOther_arr[0] ?>
-                                <td>{{ number_format($money, 2) }} บาท</td>
+                                <td id="buildingca_money"></td>
                             </tr>
                             <tr>
                                 <td>ประมาณการเมื่อถึงสิ้นเดือน</td>
-                                <td>{{ number_format($BuildingOther_arr[5], 2) }} kWh</td>
+                                <td id="buildingca_esttomonth"></td>
                             </tr>
                         </tbody>
                     </table>

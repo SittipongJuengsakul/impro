@@ -1,6 +1,7 @@
 //slider
 var win = $(window);
             $(document).ready(function () {
+                var slidenumber=0;
                 var container = $("#container");
                 var sudoSlider = $("#slider").sudoSlider({
                     effect: "fade",
@@ -14,7 +15,6 @@ var win = $(window);
                     customLink: ".sudoSliderLink",
                     updateBefore: true
                 });
-
                 win.on("resize blur focus", function () {
                     var height = win.height();
                     sudoSlider.height(height);
@@ -80,12 +80,23 @@ var win = $(window);
                     }, true);
                 });
             });
-    if(window.top==window) {
-        window.setTimeout('location.reload()', 900000); //Reloads after 15 min
-    }
-    else {
+function refreshAt(hours, minutes, seconds) {
+                var now = new Date();
+                var then = new Date();
 
-    }
+                if(now.getHours() > hours ||
+                   (now.getHours() == hours && now.getMinutes() > minutes) ||
+                    now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+                    then.setDate(now.getDate() + 1);
+                }
+                then.setHours(hours);
+                then.setMinutes(minutes);
+                then.setSeconds(seconds);
+
+                var timeout = (then.getTime() - now.getTime());
+                setTimeout(function() { window.location.reload(true); }, timeout);
+                console.log('refresh!');
+}
 function BuildingAll(b1,b2,b3456,b7,other){
     // Build the chart
                 $('#container-TotalAll').highcharts({
@@ -159,9 +170,25 @@ function BuildingAll(b1,b2,b3456,b7,other){
                     }]
                 });
 }
-function show_Building1(elect,aircon,other){
+function show_Building(id_contain,elect,aircon,other,num_building){
     // Build the chart
-                $('#container-building-1').highcharts({
+                var array_building = [];
+                if(elect>0){
+                  array_building.push({ name: "ไฟฟ้า แสงสว่าง ปลั๊ก",y:elect});
+                }else{
+                  console.log('tbl_pb ของอาคาร '+num_building+' ไม่มี');
+                }
+                if(aircon>0){
+                  array_building.push({ name: "เครื่องปรับอากาศ",y:aircon});
+                }else{
+                  console.log('tbl_aircon ของอาคาร '+num_building+' ไม่มี');
+                }
+                if(other>0){
+                  array_building.push({ name: "อื่น",y:other});
+                }else{
+                  console.log('ไม่มีข้อมูลไดๆ ของอาคาร '+num_building);
+                }
+                $(id_contain).highcharts({
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -169,7 +196,7 @@ function show_Building1(elect,aircon,other){
                         type: 'pie'
                     },
                     title: {
-                        text: 'สัดส่วนการใช้พลังงานอาคาร 1'
+                        text: 'สัดส่วนการใช้พลังงานอาคาร '+num_building
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -212,285 +239,7 @@ function show_Building1(elect,aircon,other){
                     series: [{
                         name: "ใช้พลังงาน",
                         colorByPoint: true,
-                        data: [{
-                            name: 'ไฟฟ้า แสงสว่าง ปลั๊ก',
-                            y: elect
-                        },{
-                            name: 'เครื่องปรับอากาศ',
-                            y: aircon
-                        },{
-                            name: 'อื่น',
-                            y: other
-                        }
-                        ]
-                    }]
-                });
-}
-function show_Building2(elect,aircon,other){
-    // Build the chart
-                $('#container-building-2').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'สัดส่วนการใช้พลังงานอาคาร 2'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-
-                    credits:{
-                        enabled: false
-                    },
-                    exporting:{
-                        enabled: false
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        floating: true,
-                        y: 160,
-                        x: -50
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        },
-                        series: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function() {
-                                return Math.round(this.percentage*100)/100 + ' %';
-                            },
-                            distance: -30,
-                            color:'white'
-                        }
-                    }
-                    },
-                    series: [{
-                        name: "ใช้พลังงาน",
-                        colorByPoint: true,
-                        data: [{
-                            name: 'ไฟฟ้า แสงสว่าง ปลั๊ก',
-                            y: elect
-                        },{
-                            name: 'เครื่องปรับอากาศ',
-                            y: aircon
-                        },{
-                            name: 'อื่น',
-                            y: other
-                        }
-                        ]
-                    }]
-                });
-}
-function show_Building3(elect,aircon,other){
-    // Build the chart
-                $('#container-building-3').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'สัดส่วนการใช้พลังงานอาคาร 3 4 5 6'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-
-                    credits:{
-                        enabled: false
-                    },
-                    exporting:{
-                        enabled: false
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        floating: true,
-                        y: 160,
-                        x: -50
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        },
-                        series: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function() {
-                                return Math.round(this.percentage*100)/100 + ' %';
-                            },
-                            distance: -30,
-                            color:'white'
-                        }
-                    }
-                    },
-                    series: [{
-                        name: "ใช้พลังงาน",
-                        colorByPoint: true,
-                        data: [{
-                            name: 'ไฟฟ้า แสงสว่าง ปลั๊ก',
-                            y: elect
-                        },{
-                            name: 'เครื่องปรับอากาศ',
-                            y: aircon
-                        },{
-                            name: 'อื่น',
-                            y: other
-                        }
-                        ]
-                    }]
-                });
-}
-function show_Building7(elect,aircon,other){
-    // Build the chart
-                $('#container-building-7').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'สัดส่วนการใช้พลังงานอาคาร 7'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-
-                    credits:{
-                        enabled: false
-                    },
-                    exporting:{
-                        enabled: false
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        floating: true,
-                        y: 160,
-                        x: -50
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        },
-                        series: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function() {
-                                return Math.round(this.percentage*100)/100 + ' %';
-                            },
-                            distance: -30,
-                            color:'white'
-                        }
-                    }
-                    },
-                    series: [{
-                        name: "ใช้พลังงาน",
-                        colorByPoint: true,
-                        data: [{
-                            name: 'ไฟฟ้า แสงสว่าง ปลั๊ก',
-                            y: elect
-                        },{
-                            name: 'เครื่องปรับอากาศ',
-                            y: aircon
-                        },{
-                            name: 'อื่น',
-                            y: other
-                        }
-                        ]
-                    }]
-                });
-}
-function show_BuildingOther(elect,aircon,other){
-    // Build the chart
-                $('#container-building-other').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: 'สัดส่วนการใช้พลังงานอาคาร อื่นๆ'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-
-                    credits:{
-                        enabled: false
-                    },
-                    exporting:{
-                        enabled: false
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        floating: true,
-                        y: 160,
-                        x: -50
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
-                            showInLegend: true
-                        },
-                        series: {
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function() {
-                                return Math.round(this.percentage*100)/100 + ' %';
-                            },
-                            distance: -30,
-                            color:'white'
-                        }
-                    }
-                    },
-                    series: [{
-                        name: "ใช้พลังงาน",
-                        colorByPoint: true,
-                        data: [{
-                            name: 'ไฟฟ้า แสงสว่าง ปลั๊ก',
-                            y: elect
-                        },{
-                            name: 'เครื่องปรับอากาศ',
-                            y: aircon
-                        },{
-                            name: 'อื่น',
-                            y: other
-                        }
-                        ]
+                        data: array_building
                     }]
                 });
 }

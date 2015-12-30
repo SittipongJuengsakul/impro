@@ -60,9 +60,9 @@ class SlideController extends Controller
       	$thismonth =  (int)Carbon::now()->format('m');
           //วันปัจจุบัน
           $thisday =  (int)Carbon::now()->format('d');
-          $real_use = TBL::Building1($thisyear,$thismonth);
-          $est_building = 10000;
-          $ftEst_building = 7.62;
+          $real_use = TBL::realuse_building($building_number,$thisyear,$thismonth);
+          $est_building = TBL::getEstDataInTbl('tbl_building_b'.$building_number,$thisyear,$thismonth);
+          $ftEst_building = TBL::getFtMonth($thisyear,$thismonth);
           $tbl_LP_B = TBL::tbl_LP_B($building_number,$thisyear,$thismonth);
           $tbl_AIR_B = TBL::tbl_AIR_B($building_number,$thisyear,$thismonth);
           $tbl_Other_B = TBL::tbl_Other_B($building_number,$thisyear,$thismonth);
@@ -72,12 +72,12 @@ class SlideController extends Controller
                 $statusCode = 200;
                  $response = [
                    'use_building' => number_format($real_use, 2),
+                   'all_use'=>$real_use,
                    'est_building' => number_format($est_building, 2),
                    'ftEst_building' => number_format($ftEst_building, 2),
                    'endmonth_building' => number_format($real_use+$dayB, 2),
                    'money_building' => number_format($real_use*$ftEst_building, 2),
                    'avg_building' => $dayB,
-                   'other' => $tbl_Other_B,
                    'elect' => $tbl_LP_B,
                    'air' => $tbl_AIR_B,
                    'other' => $tbl_Other_B,

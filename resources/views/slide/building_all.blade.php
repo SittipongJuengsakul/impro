@@ -34,22 +34,20 @@
                 <tbody>
                     <tr>
                         <td width="50%">เป้าหมาย</td>
-                        <td width="50%">{{ $totalEst }} kWh</td>
+                        <td width="50%" id="buildinga_est"></td>
                     </tr>
                     <tr>
                         <td>ปัจจุบันใช้</td>
-                        <td>{{ $kwh = number_format($All_Used, 2) }} kWh</td>
+                        <td id="buildinga_current"></td>
                     </tr>
                     <tr>
                         <td>เป็นเงิน</td>
-                        <?php $money = $All_Used*$ftEst ?>
-                        <td>{{ number_format($money, 2) }} บาท</td>
+                        <td id="buildinga_money"></td>
                     </tr>
                     <tr>
                         <td>ประมาณการเมื่อถึงสิ้นเดือน</td>
-                        <td>{{ number_format($EstMonthtoUse, 2) }} kWh</td>
+                        <td id="buildinga_esttomonth"></td>
                     </tr>
-
                 </tbody>
             </table>
           </div>
