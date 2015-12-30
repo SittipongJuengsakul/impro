@@ -4,6 +4,10 @@
 @section('content')
 <div id="container" style="margin: 0;">
     <div id="slider">
+    <!-- Add intro -->
+    @include('slide.intro')
+    <!-- Add mapbot -->
+    @include('slide.mapbot')
     <!-- Add Building All Area -->
     @include('slide.building_all')
     <!-- Add Building 1 Area -->
@@ -14,6 +18,8 @@
     @include('slide.showkwh')
     <!-- แสดงการไช้เงินหน่วย-->
     @include('slide.showmoney')
+    <!-- แสดงหน้าประหยัดพลังงาน-->
+    @include('slide.energysave')
     <!-- แสดงการไช้พลังงานกลุ่ม 1-->
     @include('slide.energyg1')
     @include('slide.energyg2')
