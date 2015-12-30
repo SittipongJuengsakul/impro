@@ -45,6 +45,7 @@
     building3_show();
     building7_show();
     building13_show();
+    building89_show();
     setInterval(function(){
       page_number+=1;
       if(page_number>=3){
@@ -53,7 +54,10 @@
         building1_show();
         building2_show();
         building3_show();
-  }, 4000);
+        building7_show();
+        building13_show();
+        building89_show();
+  }, 900000);
   });
 
     </script>

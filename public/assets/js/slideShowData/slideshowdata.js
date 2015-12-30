@@ -342,7 +342,7 @@ function building13_show() {
       $('#building13_money').html(data.money_building +' บาท');
       $('#building13_esttomonth').html(data.endmonth_building+' kWh');
       var other_data = data.all_use-data.elect-data.air;
-      show_Building('#container-building-13',data.elect,data.air,other_data,'13');
+      show_Building('#container-building-13',data.elect,data.air,other_data,'1/3');
   });
 }
 function building89_show() {
@@ -358,6 +358,6 @@ function building89_show() {
       $('#building89_money').html(data.money_building +' บาท');
       $('#building89_esttomonth').html(data.endmonth_building+' kWh');
       var other_data = data.all_use-data.elect-data.air;
-      show_Building('#container-building-89',data.elect,data.air,other_data,'89');
+      show_Building('#container-building-89',data.elect,data.air,other_data,'8 9');
   });
 }

@@ -34,7 +34,7 @@
                         <tbody>
                             <tr>
                                 <td width="50%">เป้าหมาย</td>
-                                <td width="50%" id="building7_est"></td>
+                                <td width="50%" id="building89_est"></td>
                             </tr>
                             <tr>
                                 <td>ปัจจุบันใช้</td>
