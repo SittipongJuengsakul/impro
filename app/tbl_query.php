@@ -250,4 +250,37 @@ class tbl_query extends Model
       }
       return $tb1-$tb2-$tb3;
     }
+    public static function chillerplant_show_all($table,$year,$month,$day){
+        $check = Schema::hasTable($table);
+        if(!$check){
+          return 0;
+        }else{
+          $arr_return = [];
+          date_default_timezone_set('Asia/Bangkok');
+          $timeToCurrent = date("H");
+          for($i=1;$i<=23;$i++){
+            if($i<10){
+              $stm = '0'.$i.':00';
+              $etm = '0'.$i.':59';
+            }else{
+              $stm = $i.':00';
+              $etm = $i.':59';
+            }
+            $value = DB::table($table)
+            ->where('times','>=',$stm)->where('times','<=',$etm)
+            ->where('year',$year)->where('month',$month)->where('date',$day)->max('consumption');
+            if($value<=0||$value==null){
+              $value=0;
+            }else{
+            $value=$value;
+            }
+            array_push($arr_return,intval($value));
+          }
+          $value = DB::table($table)
+          ->where('times','>=','00:00')->where('times','<=','00:59')
+          ->where('year',$year)->where('month',$month)->where('date',$day)->max('consumption');
+          array_push($arr_return,intval($value));
+        }
+        return $arr_return;
+    }
 }

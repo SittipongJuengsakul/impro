@@ -46,6 +46,13 @@
     building7_show();
     building13_show();
     building89_show();
+    $.ajax({
+      url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
+    }).then(function(data) {
+        chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
+    });
+
+
     setInterval(function(){
       page_number+=1;
       if(page_number>=3){
@@ -57,6 +64,12 @@
         building7_show();
         building13_show();
         building89_show();
+        //chillerplant show
+        $.ajax({
+          url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
+        }).then(function(data) {
+            chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
+        });
   }, 900000);
   });
 

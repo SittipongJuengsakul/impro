@@ -194,6 +194,7 @@ function show_Building(id_contain,elect,aircon,other,num_building){
                 }else{
                   console.log('ไม่มีข้อมูลไดๆ ของอาคาร '+num_building);
                 }
+
                 $(id_contain).highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -360,4 +361,76 @@ function building89_show() {
       var other_data = data.all_use-data.elect-data.air;
       show_Building('#container-building-89',data.elect,data.air,other_data,'8 9');
   });
+}
+function chillerplant_show_dayall(b1,b2,b5,b7,dc1){
+      if(b1==0){
+        console.log('ไม่มี tbl_plant_b1');
+      }
+      if(b2==0){
+        console.log('ไม่มี tbl_plant_b2');
+      }
+      if(b5==0){
+        console.log('ไม่มี tbl_plant_b5');
+      }
+      if(b7==0){
+        console.log('ไม่มี tbl_plant_b7');
+      }
+      if(dc1==0){
+        console.log('ไม่มี tbl_plant_dc1');
+      }
+      $('#container_chiller_plant_all').highcharts({
+          title: {
+              text: '',
+              x: -20 //center
+          },
+          credits:{
+              enabled: false
+          },
+          exporting:{
+              enabled: false
+          },
+          subtitle: {
+              text: '',
+              x: -20
+          },
+          xAxis: {
+              text: 'เวลา (นาฬิกา)',
+              categories: ['1', '2', '3', '4', '5', '6','7', '8', '9', '10', '11', '12','13','14','15','16','17','18','19','20','21','22','23','24']
+          },
+          yAxis: {
+              title: {
+                  text: 'พลังงานที่ใช้ (kWh)'
+              },
+              plotLines: [{
+                  value: 0,
+                  width: 1,
+                  color: '#808080'
+              }]
+          },
+          tooltip: {
+              valueSuffix: ' kWh'
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+          },
+          series: [{
+              name: 'tbl_Plant_B1',
+              data: b1
+          }, {
+              name: 'tbl_Plant_B2',
+              data: b2
+          }, {
+              name: 'tbl_Plant_B5',
+              data: b5
+          }, {
+              name: 'tbl_Plant_B7',
+              data: b7
+          }, {
+              name: 'tbl_Plant_DC1',
+              data: dc1
+          }]
+      });
 }

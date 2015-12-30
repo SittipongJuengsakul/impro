@@ -122,4 +122,32 @@ class SlideController extends Controller
              return Response::json($response, $statusCode);
          }
         }
+        public function chillerplant_show_all()
+        {
+          //ปีปัจจุบัน
+      	   $thisyear = Carbon::now()->format('Y');
+          //เดือนปัจจุบัน
+      	   $thismonth =  (int)Carbon::now()->format('m');
+          //วันปัจจุบัน
+          $thisday =  (int)Carbon::now()->format('d');
+          $b1 = TBL::chillerplant_show_all('tbl_plant_b1',$thisyear,$thismonth,$thisday);
+          $b2 = TBL::chillerplant_show_all('tbl_plant_b2',$thisyear,$thismonth,$thisday);
+          $b5 = TBL::chillerplant_show_all('tbl_plant_b5',$thisyear,$thismonth,$thisday);
+          $b7 = TBL::chillerplant_show_all('tbl_plant_b7',$thisyear,$thismonth,$thisday);
+          $dc1 = TBL::chillerplant_show_all('tbl_plant_dc1',$thisyear,$thismonth,$thisday);
+          try{
+                $statusCode = 200;
+                 $response = [
+                   'b1' => $b1,
+                   'b2' => $b2,
+                   'b5' => $b5,
+                   'b7' => $b7,
+                   'dc1' => $dc1
+                 ];
+         }catch (Exception $e){
+             $statusCode = 400;
+         }finally{
+             return Response::json($response, $statusCode);
+         }
+        }
 }
