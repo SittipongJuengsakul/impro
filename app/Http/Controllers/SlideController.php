@@ -150,6 +150,28 @@ class SlideController extends Controller
              return Response::json($response, $statusCode);
          }
         }
+        public function energy_group_all($nametbl)
+        {
+          //ปีปัจจุบัน
+      	  $thisyear = Carbon::now()->format('Y');
+          //เดือนปัจจุบัน
+      	  $thismonth =  (int)Carbon::now()->format('m');
+          //วันปัจจุบัน
+          $thisday =  (int)Carbon::now()->format('d');
+          $realuse = TBL::energy_group($nametbl,$thisyear,$thismonth);
+          $estuse = TBL::est_energy_group($nametbl,$thisyear,$thismonth);
+          try{
+                $statusCode = 200;
+                 $response = [
+                   'energy' => $realuse,
+                   'estenergy' => $estuse
+                 ];
+         }catch (Exception $e){
+             $statusCode = 400;
+         }finally{
+             return Response::json($response, $statusCode);
+         }
+        }
         public static function showkwh_all()
         {
           //ปีปัจจุบัน

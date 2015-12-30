@@ -8,22 +8,14 @@
     @include('slide.building_all')
     <!-- Add Building 1 Area -->
     @include('slide.building_1')
-    <!-- Add Building 2 Area -->
-    @include('slide.building_2')
-    <!-- Add Building 3 Area -->
-    @include('slide.building_3')
-    <!-- Add Building 7 Area -->
-    @include('slide.building_7')
-    <!-- Add Building 13 Area -->
-    @include('slide.building_13')
-    <!-- Add Building 89 Area -->
-    @include('slide.building_89')
     <!-- Chiller Plant -->
     @include('slide.chillerplant')
     <!-- แสดงการไช้งานหน่วย-->
     @include('slide.showkwh')
     <!-- แสดงการไช้เงินหน่วย-->
     @include('slide.showmoney')
+    <!-- แสดงการไช้พลังงานกลุ่ม 1-->
+    @include('slide.energyg1')
     </div>
 </div>
 
@@ -43,46 +35,16 @@
   $(document).ready(function () {
     buildingall_show()
     building1_show();
-    building2_show();
-    building3_show();
-    building7_show();
-    building13_show();
-    building89_show();
-    $.ajax({
-      url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
-    }).then(function(data) {
-        chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
-    });
-    //showkwh
-    $.ajax({
-      url: 'http://localhost/impro-bot/public/user/slideshow/showkwh_all'
-    }).then(function(data) {
-        $('#showkwh_todayuse').html(data.daykwh);
-        $('#showkwh_tomonthuse').html(data.monthkwh);
-        $('#showkwh_toyearuse').html(data.yearkwh);
-        $('#showmoney_todayuse').html(data.daymoney);
-        $('#showmoney_tomonthuse').html(data.monthmoney);
-        $('#showmoney_toyearuse').html(data.yearmoney);
-    });
-
+    chiller_show();
+    showkwnmoney();
+    energy_show(1);
 
     setInterval(function(){
       page_number+=1;
       if(page_number>=3){
         page_number=1;
       }
-        building1_show();
-        building2_show();
-        building3_show();
-        building7_show();
-        building13_show();
-        building89_show();
-        //chillerplant show
-        $.ajax({
-          url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
-        }).then(function(data) {
-            chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
-        });
+      building1_show();
   }, 900000);
   });
 

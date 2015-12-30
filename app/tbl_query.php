@@ -283,6 +283,55 @@ class tbl_query extends Model
         }
         return $arr_return;
     }
+    public static function energy_group($table,$year,$month){
+        $check = Schema::hasTable($table);
+        if(!$check){
+          return 0;
+        }else{
+          $arr_return = [];
+          for($i=1;$i<=12;$i++){
+            $value = DB::table($table)
+            ->where('year',$year)->where('month',$i)->sum('consumption');
+            if($value<=0||$value==null){
+              $value=0;
+            }else{
+            $value=$value;
+            }
+            array_push($arr_return,floatval($value));
+          }
+        }
+        return $arr_return;
+    }
+    public static function est_energy_group($table,$year,$month){
+        $check = Schema::hasTable($table);
+        if(!$check){
+          return 0;
+        }else{
+          $arr_return = [];
+          for($i=1;$i<=12;$i++){
+            $data = 0;//
+            $mdd_data = 0;//
+            $mddid = DB::table('matchdatadisplay')->select('mdd_id')->where('tabledbname',$table)->get();
+            $before_data = DB::table('estimate_tool')
+            ->where('estimate_tool.mdd_id',$mddid[0]->mdd_id)
+            ->where('estimate_tool.year',$year)
+            ->where('estimate_tool.month',$i)->get();
+            if(!$before_data){
+              $value=0;
+            }else{
+              $value = $before_data[0]->estimate;
+            }
+            //return $before_data[0]->estimate;
+            if($value<=0||$value==null){
+              $value=0;
+            }else{
+            $value=$value;
+            }
+            array_push($arr_return,floatval($value));
+          }
+        }
+        return $arr_return;
+    }
     public static function showkwh_day($year,$month,$day)
     {
       $table='tbl_mea_bot';

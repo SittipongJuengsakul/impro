@@ -434,3 +434,99 @@ function chillerplant_show_dayall(b1,b2,b5,b7,dc1){
           }]
       });
 }
+function chiller_show(){
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
+  }).then(function(data) {
+      chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
+  });
+}
+function showkwnmoney(){
+  //showkwh
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/showkwh_all'
+  }).then(function(data) {
+      $('#showkwh_todayuse').html(data.daykwh);
+      $('#showkwh_tomonthuse').html(data.monthkwh);
+      $('#showkwh_toyearuse').html(data.yearkwh);
+      $('#showmoney_todayuse').html(data.daymoney);
+      $('#showmoney_tomonthuse').html(data.monthmoney);
+      $('#showmoney_toyearuse').html(data.yearmoney);
+  });
+}
+function energy_show(groupnumber){
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/energy_group_all/tbl_energy_g'+groupnumber
+  }).then(function(data) {
+    energy_group(data.energy,data.estenergy,groupnumber);
+  });
+}
+function energy_group(energy,estenergy,groupnumber){
+      var colorenergy = '';
+      colorenergy = 'rgba(0,79,202,0.67)';
+      $('#container_energy_g1').highcharts({
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'กลุ่มที่ 1'
+          },
+          xAxis: {
+              categories: [
+                  'มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤภษาคม','มิถุนายน','กรกฏาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'
+              ]
+          },
+          yAxis: [{
+              min: 0,
+              title: {
+                  text: ''
+              }
+          }, {
+              title: {
+                  text: 'การใช้พลังงาน (kWh)'
+              }
+          }],
+          legend: {
+              shadow: false
+          },
+          credits:{
+              enabled: false
+          },
+          exporting:{
+              enabled: false
+          },
+          tooltip: {
+              shared: true
+          },
+          plotOptions: {
+              column: {
+                  grouping: false,
+                  shadow: false,
+                  borderWidth: 0
+              }
+          },
+          series: [ {
+              name: 'เป้าหมายการใช้พลังงาน',
+              color: 'rgba(149,183,236,0.67)',
+              data: estenergy,
+              tooltip: {
+                  valuePrefix: '',
+                  valueSuffix: ' kWh'
+              },
+              pointPadding: 0.3,
+              pointPlacement: 0.0,
+              yAxis: 1
+          }, {
+              name: 'พลังงานที่ใช้งานจริง',
+              color: colorenergy,
+              data: energy,
+              tooltip: {
+                  valuePrefix: '',
+                  valueSuffix: ' kWh'
+              },
+              pointPadding: 0.4,
+              pointPlacement: 0.0,
+              yAxis: 1
+          }]
+      });
+}

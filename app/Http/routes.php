@@ -24,6 +24,9 @@ Route::get('user/slideshow/building_all_data','SlideController@building_all_data
 Route::get('user/slideshow/building_data/{building}','SlideController@building_data');
 Route::get('user/slideshow/chillerplant_show_all','SlideController@chillerplant_show_all');
 Route::get('user/slideshow/showkwh_all','SlideController@showkwh_all');
+Route::get('user/slideshow/energy_group_all/{nametbl}','SlideController@energy_group_all');
+Route::get('user/slideshow/est_energy_group_all/{nametbl}','SlideController@est_energy_group_all');
+
 
 Route::get('user/report','HomeController@showdata');
 Route::post('user/submit','HomeController@submit');
