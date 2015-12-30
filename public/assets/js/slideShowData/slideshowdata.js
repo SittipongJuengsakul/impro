@@ -97,7 +97,7 @@ function refreshAt(hours, minutes, seconds) {
                 setTimeout(function() { window.location.reload(true); }, timeout);
                 console.log('refresh!');
 }
-function BuildingAll(b1,b2,b3456,b7,other){
+function BuildingAll(b1,b2,b3456,b7,b13,b89,other){
     // Build the chart
                 $('#container-TotalAll').highcharts({
                     chart: {
@@ -162,6 +162,12 @@ function BuildingAll(b1,b2,b3456,b7,other){
                         },{
                             name: 'Building 7',
                             y: b7
+                        },{
+                            name: 'Building 1/3',
+                            y: b13
+                        },{
+                            name: 'Building 8 9',
+                            y: b89
                         },{
                             name: 'Other',
                             y: other
@@ -242,4 +248,116 @@ function show_Building(id_contain,elect,aircon,other,num_building){
                         data: array_building
                     }]
                 });
+}
+
+function buildingall_show(){
+  $('#buildinga_est').html('<div class="loader_content"></div>');
+  $('#buildinga_current').html('<div class="loader_content"></div>');
+  $('#buildinga_money').html('<div class="loader_content"></div>');
+  $('#buildinga_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_all_data'
+  }).then(function(data) {
+      $('#buildinga_est').html(data.est_all_use+' kWh');
+      $('#buildinga_current').html(data.all_use+' kWh');
+      $('#buildinga_money').html(data.money_all_use +' บาท');
+      $('#buildinga_esttomonth').html(data.endmonth_all_use+' kWh');
+      BuildingAll(data.b1,data.b2,data.b3,data.b7,data.b13,data.b89,data.bother);
+  });
+}
+function building1_show(){
+  $('#building1_est').html('<div class="loader_content"></div>');
+  $('#building1_current').html('<div class="loader_content"></div>');
+  $('#building1_money').html('<div class="loader_content"></div>');
+  $('#building1_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/1'
+  }).then(function(data) {
+      $('#building1_est').html(data.est_building+' kWh');
+      $('#building1_current').html(data.use_building+' kWh');
+      $('#building1_money').html(data.money_building +' บาท');
+      $('#building1_esttomonth').html(data.endmonth_building+' kWh');
+      var other_data = data.all_use-data.elect-data.air;
+      show_Building('#container-building-1',data.elect,data.air,other_data,'1');
+  });
+}
+function building2_show() {
+  $('#building2_est').html('<div class="loader_content"></div>');
+  $('#building2_current').html('<div class="loader_content"></div>');
+  $('#building2_money').html('<div class="loader_content"></div>');
+  $('#building2_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/2'
+  }).then(function(data) {
+      $('#building2_est').html(data.est_building+' kWh');
+      $('#building2_current').html(data.use_building+' kWh');
+      $('#building2_money').html(data.money_building +' บาท');
+      $('#building2_esttomonth').html(data.endmonth_building+' kWh');
+      var other_data = data.all_use-data.elect-data.air;
+      show_Building('#container-building-2',data.elect,data.air,other_data,'2');
+  });
+}
+function building3_show() {
+  $('#building3_est').html('<div class="loader_content"></div>');
+  $('#building3_current').html('<div class="loader_content"></div>');
+  $('#building3_money').html('<div class="loader_content"></div>');
+  $('#building3_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/3'
+  }).then(function(data) {
+      $('#building3_est').html(data.est_building+' kWh');
+      $('#building3_current').html(data.use_building+' kWh');
+      $('#building3_money').html(data.money_building +' บาท');
+      $('#building3_esttomonth').html(data.endmonth_building+' kWh');
+      var other_data = data.all_use-data.elect-data.air;
+      show_Building('#container-building-3',data.elect,data.air,other_data,'3 4 5 6');
+  });
+}
+function building7_show() {
+  $('#building7_est').html('<div class="loader_content"></div>');
+  $('#building7_current').html('<div class="loader_content"></div>');
+  $('#building7_money').html('<div class="loader_content"></div>');
+  $('#building7_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/7'
+  }).then(function(data) {
+      $('#building7_est').html(data.est_building+' kWh');
+      $('#building7_current').html(data.use_building+' kWh');
+      $('#building7_money').html(data.money_building +' บาท');
+      $('#building7_esttomonth').html(data.endmonth_building+' kWh');
+      var other_data = data.all_use-data.elect-data.air;
+      show_Building('#container-building-7',data.elect,data.air,other_data,'7');
+  });
+}
+function building13_show() {
+  $('#building13_est').html('<div class="loader_content"></div>');
+  $('#building13_current').html('<div class="loader_content"></div>');
+  $('#building13_money').html('<div class="loader_content"></div>');
+  $('#building13_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/13'
+  }).then(function(data) {
+      $('#building13_est').html(data.est_building+' kWh');
+      $('#building13_current').html(data.use_building+' kWh');
+      $('#building13_money').html(data.money_building +' บาท');
+      $('#building13_esttomonth').html(data.endmonth_building+' kWh');
+      var other_data = data.all_use-data.elect-data.air;
+      show_Building('#container-building-13',data.elect,data.air,other_data,'13');
+  });
+}
+function building89_show() {
+  $('#building89_est').html('<div class="loader_content"></div>');
+  $('#building89_current').html('<div class="loader_content"></div>');
+  $('#building89_money').html('<div class="loader_content"></div>');
+  $('#building89_esttomonth').html('<div class="loader_content"></div>');
+  $.ajax({
+    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/89'
+  }).then(function(data) {
+      $('#building89_est').html(data.est_building+' kWh');
+      $('#building89_current').html(data.use_building+' kWh');
+      $('#building89_money').html(data.money_building +' บาท');
+      $('#building89_esttomonth').html(data.endmonth_building+' kWh');
+      var other_data = data.all_use-data.elect-data.air;
+      show_Building('#container-building-89',data.elect,data.air,other_data,'89');
+  });
 }

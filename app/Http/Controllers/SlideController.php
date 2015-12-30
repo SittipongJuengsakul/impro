@@ -29,28 +29,62 @@ class SlideController extends Controller
         $ftEst = TBL::getFtMonth($thisyear,$thismonth);
         //เดือนที่แล้ว
         $beformonth = $thismonth-1;
-        //ปริมาณไฟฟ้าที่ไช้รวมทุกตึก
-        $All_Used = TBL::tbl_mea_BOT($thisyear,$thismonth);
-        //ประมาณปริมาณที่ไช้จากวันที่เหลือของเดือน
-        $EstMonthtoUse = TBL::avg_tbl_mea_BOT($thisyear,$thismonth)*(30-$thisday);
-        //ตึก 1
-        $b1 = TBL::Building1($thisyear,$thismonth);
-        //ตึก 2
-        //$b2 = TBL::Building2($thisyear,$thismonth); b2 ไม่มี
-        $b2 = 100;
-        //ตึก 3 4 5 6
-        $b3 = TBL::Building3456($thisyear,$thismonth);
-        //ตึก 7
-        $b7 = TBL::Building7($thisyear,$thismonth);
-        //ตึก other : mea_PW+mea_B89+mea_landscap ไม่มี
-        $bOther = TBL::BuildingOther($thisyear,$thismonth);
-        //ประกาศค่า building รวม
-        $Building = array($b1,$b2,$b3,$b7,$bOther);
 
-        $Building1_arr = array(0,0,0,0,0,0);
         return view('slideshow_data',compact('EstMonthtoUse','thismonth','All_Used','tbl_EstArray','totalEst','ftEst','Building','Building1_arr'));
 
       }
+        public function building_all_data(){
+          //ปีปัจจุบัน
+      	  $thisyear = Carbon::now()->format('Y');
+          //เดือนปัจจุบัน
+      	  $thismonth =  (int)Carbon::now()->format('m');
+          //วันปัจจุบัน
+          $thisday =  (int)Carbon::now()->format('d');
+          //ค่าไฟ
+          $ftEst_building = TBL::getFtMonth($thisyear,$thismonth);
+          //ตึก 1
+          $b1 = TBL::Building1($thisyear,$thismonth);
+          //ตึก 2
+          //$b2 = TBL::Building2($thisyear,$thismonth); b2 ไม่มี
+          $b2 = 100;
+          //ตึก 3 4 5 6
+          $b3 = TBL::Building3456($thisyear,$thismonth);
+          //ตึก 7
+          $b7 = TBL::Building7($thisyear,$thismonth);
+          //ตึก 13
+          $b13 = TBL::Building13($thisyear,$thismonth);
+          //ตึก 7
+          $b89 = TBL::Building89($thisyear,$thismonth);
+          //ตึก other : mea_PW+mea_B89+mea_landscap ไม่มี
+          $bOther = TBL::BuildingOther($thisyear,$thismonth);
+
+          //ปริมาณไฟฟ้าที่ไช้รวมทุกตึก
+          $All_Used = TBL::tbl_mea_BOT($thisyear,$thismonth);
+          //ประมาณปริมาณที่ไช้จากวันที่เหลือของเดือน
+          $est_building = TBL::getEstDataInTbl('tbl_mea_bot',$thisyear,$thismonth);
+
+          $EstMonthtoUse = TBL::avg_tbl_mea_BOT($thisyear,$thismonth,$thisday,$All_Used);
+          try{
+                $statusCode = 200;
+                 $response = [
+                   'b1' => $b1,
+                   'b2'=>$b2,
+                   'b3'=>$b3,
+                   'b7'=>$b7,
+                   'b13'=>$b13,
+                   'b89'=>$b89,
+                   'bother'=>$bOther,
+                   'all_use'=>number_format($All_Used,2),
+                   'est_all_use'=>number_format($est_building,2),
+                   'money_all_use' => number_format($All_Used*$ftEst_building, 2),
+                   'endmonth_all_use'=> number_format($All_Used+$EstMonthtoUse, 2)
+                 ];
+         }catch (Exception $e){
+             $statusCode = 400;
+         }finally{
+             return Response::json($response, $statusCode);
+         }
+        }
 
         public function building_data($building_number)
         {

@@ -71,35 +71,95 @@ class tbl_query extends Model
         return DB::table('tbl_mea_bot')
         ->where('year',$year)->where('month',$month)->sum('consumption');
     }
-    public static function avg_tbl_mea_BOT($year,$month)
+    public static function avg_tbl_mea_BOT($year,$month,$thisday,$All_Used)
     {
-        return DB::table('tbl_mea_bot')
-        ->where('year',$year)->where('month',$month)->avg('consumption');
+        $table = 'tbl_mea_bot';
+        $check = Schema::hasTable($table);
+        switch($month) {
+            case 1 : $thismonth= 31; break;
+            case 2 : $thismonth= 28; break;
+            case 3 : $thismonth= 31; break;
+            case 4 : $thismonth= 30; break;
+            case 5 : $thismonth= 31; break;
+            case 6 : $thismonth= 30; break;
+            case 7 : $thismonth= 31; break;
+            case 8 : $thismonth= 31; break;
+            case 9 : $thismonth= 30; break;
+            case 10 : $thismonth= 31; break;
+            case 11 : $thismonth= 30; break;
+            case 12 : $thismonth= 31; break;
+            default : $thismonth= 30; break;
+        }
+        if(!$check){
+          return 0;
+        }else{
+          $valAvg = $All_Used;
+          $valAvg = $valAvg/$thisday;//หาค่าเฉลี่ยของเดือนนี้
+          $dayleft = $thismonth-$thisday;
+          if($dayleft<=1){
+            $dayleft=1;
+          }
+          $valAvg = $valAvg*$dayleft;
+          return $valAvg;
+        }
     }
     public static function Building1($year,$month){
-        return DB::table('tbl_mea_b1')
-        ->where('year',$year)->where('month',$month)->sum('consumption');
+        $check = Schema::hasTable('tbl_mea_b1');
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table('tbl_mea_b1')
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
     }
     public static function Building2($year,$month){
-        return DB::table('tbl_mea_b2')
-        ->where('year',$year)->where('month',$month)->sum('consumption');
+        $check = Schema::hasTable('tbl_mea_b2');
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table('tbl_mea_b2')
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
     }
     public static function Building3456($year,$month){
-        return DB::table('tbl_mea_b3')
-        ->where('year',$year)->where('month',$month)->sum('consumption');
+        $check = Schema::hasTable('tbl_mea_b3');
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table('tbl_mea_b3')
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
     }
     public static function Building7($year,$month){
-        return DB::table('tbl_mea_b7')
-        ->where('year',$year)->where('month',$month)->sum('consumption');
+        $check = Schema::hasTable('tbl_mea_b7');
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table('tbl_mea_b7')
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
+    }
+    public static function Building13($year,$month){
+        $check = Schema::hasTable('tbl_mea_b13');
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table('tbl_mea_b13')
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
+    }
+    public static function Building89($year,$month){
+        $check = Schema::hasTable('tbl_mea_b89');
+        if(!$check){
+          return 0;
+        }else{
+          return DB::table('tbl_mea_b89')
+          ->where('year',$year)->where('month',$month)->sum('consumption');
+        }
     }
     public static function BuildingOther($year,$month){
         $subA = DB::table('tbl_mea_b13')->where('year',$year)->where('month',$month)->sum('consumption');
         $subB = DB::table('tbl_mea_bd')->where('year',$year)->where('month',$month)->sum('consumption');
-        //$subC = DB::table('tbl_mea_pw')->where('year',$year)->where('month',$month)->sum('consumption');
-        //$subD = DB::table('tbl_mea_b89')->where('year',$year)->where('month',$month)->sum('consumption');
-        //$subE = DB::table('tbl_mea_landscap')->where('year',$year)->where('month',$month)->sum('consumption');
-        //mea_B13+mea_BD+ mea_PW+mea_B89+mea_landscap
-        //return $subA+$subB+$subC+$subD+$subE;
         return $subA+$subB;
     }
 
