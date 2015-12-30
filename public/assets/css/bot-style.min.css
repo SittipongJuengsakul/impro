@@ -43,4 +43,26 @@ nav#slide-menu {
   width: 20px;
   height: 20px; }
 
+.showleft {
+  font-size: 36px;
+  height: 80px;
+  line-height: 100px;
+  width: 200px;
+  text-align: left; }
+
+.showcenter {
+  margin: 25px 30px;
+  background-color: #D0D0D0;
+  width: 300px;
+  line-height: 80px;
+  font-size: 36px;
+  height: 80px;
+  text-align: center; }
+
+.showright {
+  font-size: 36px;
+  height: 80px;
+  line-height: 100px;
+  text-align: left; }
+
 /*# sourceMappingURL=bot-style.min.css.map */

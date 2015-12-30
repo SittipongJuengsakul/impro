@@ -22,6 +22,8 @@
     @include('slide.building_other')
     <!-- Chiller Plant -->
     @include('slide.chillerplant')
+    <!-- แสดงการไช้งานหน่วย-->
+    @include('slide.showkwh')
     </div>
 </div>
 
