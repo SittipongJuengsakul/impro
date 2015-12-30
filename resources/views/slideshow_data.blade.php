@@ -46,7 +46,7 @@
   //init
   //highchart all Building
   //<div style="background:url(spinner.gif) no-repeat center center;width:32px;height:32px;"></div>
-
+  var site_url = '{{ URL::to("/") }}';
 
   var page_number=1;
   $(document).ready(function () {

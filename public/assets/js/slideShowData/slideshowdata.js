@@ -257,7 +257,7 @@ function buildingall_show(){
   $('#buildinga_money').html('<div class="loader_content"></div>');
   $('#buildinga_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_all_data'
+    url: site_url+'/user/slideshow/building_all_data'
   }).then(function(data) {
       $('#buildinga_est').html(data.est_all_use+' kWh');
       $('#buildinga_current').html(data.all_use+' kWh');
@@ -272,7 +272,7 @@ function building1_show(){
   $('#building1_money').html('<div class="loader_content"></div>');
   $('#building1_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/1'
+    url: site_url+'/user/slideshow/building_data/1'
   }).then(function(data) {
       $('#building1_est').html(data.est_building+' kWh');
       $('#building1_current').html(data.use_building+' kWh');
@@ -288,7 +288,7 @@ function building2_show() {
   $('#building2_money').html('<div class="loader_content"></div>');
   $('#building2_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/2'
+    url: site_url+'/user/slideshow/building_data/2'
   }).then(function(data) {
       $('#building2_est').html(data.est_building+' kWh');
       $('#building2_current').html(data.use_building+' kWh');
@@ -304,7 +304,7 @@ function building3_show() {
   $('#building3_money').html('<div class="loader_content"></div>');
   $('#building3_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/3'
+    url: site_url+'/user/slideshow/building_data/3'
   }).then(function(data) {
       $('#building3_est').html(data.est_building+' kWh');
       $('#building3_current').html(data.use_building+' kWh');
@@ -320,7 +320,7 @@ function building7_show() {
   $('#building7_money').html('<div class="loader_content"></div>');
   $('#building7_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/7'
+    url: site_url+'/user/slideshow/building_data/7'
   }).then(function(data) {
       $('#building7_est').html(data.est_building+' kWh');
       $('#building7_current').html(data.use_building+' kWh');
@@ -336,7 +336,7 @@ function building13_show() {
   $('#building13_money').html('<div class="loader_content"></div>');
   $('#building13_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/13'
+    url: site_url+'/user/slideshow/building_data/13'
   }).then(function(data) {
       $('#building13_est').html(data.est_building+' kWh');
       $('#building13_current').html(data.use_building+' kWh');
@@ -352,7 +352,7 @@ function building89_show() {
   $('#building89_money').html('<div class="loader_content"></div>');
   $('#building89_esttomonth').html('<div class="loader_content"></div>');
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/building_data/89'
+    url: site_url+'/user/slideshow/building_data/89'
   }).then(function(data) {
       $('#building89_est').html(data.est_building+' kWh');
       $('#building89_current').html(data.use_building+' kWh');
@@ -436,7 +436,7 @@ function chillerplant_show_dayall(b1,b2,b5,b7,dc1){
 }
 function chiller_show(){
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
+    url: site_url+'/user/slideshow/chillerplant_show_all'
   }).then(function(data) {
       chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
   });
@@ -444,7 +444,7 @@ function chiller_show(){
 function showkwnmoney(){
   //showkwh
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/showkwh_all'
+    url: site_url+'/user/slideshow/showkwh_all'
   }).then(function(data) {
       $('#showkwh_todayuse').html(data.daykwh);
       $('#showkwh_tomonthuse').html(data.monthkwh);
@@ -456,7 +456,7 @@ function showkwnmoney(){
 }
 function energy_show(groupnumber){
   $.ajax({
-    url: 'http://localhost/impro-bot/public/user/slideshow/energy_group_all/tbl_energy_g'+groupnumber
+    url: site_url+'/user/slideshow/energy_group_all/tbl_energy_g'+groupnumber
   }).then(function(data) {
     energy_group(data.energy,data.estenergy,groupnumber);
   });
