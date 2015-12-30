@@ -283,4 +283,37 @@ class tbl_query extends Model
         }
         return $arr_return;
     }
+    public static function showkwh_day($year,$month,$day)
+    {
+      $table='tbl_mea_bot';
+      $check = Schema::hasTable($table);
+      if(!$check){
+        return 0;
+      }else{
+        return DB::table($table)
+        ->where('year',$year)->where('month',$month)->where('date',$day)->sum('consumption');
+      }
+    }
+    public static function showkwh_month($year,$month)
+    {
+      $table='tbl_mea_bot';
+      $check = Schema::hasTable($table);
+      if(!$check){
+        return 0;
+      }else{
+        return DB::table($table)
+        ->where('year',$year)->where('month',$month)->sum('consumption');
+      }
+    }
+    public static function showkwh_year($year)
+    {
+      $table='tbl_mea_bot';
+      $check = Schema::hasTable($table);
+      if(!$check){
+        return 0;
+      }else{
+        return DB::table($table)
+        ->where('year',$year)->sum('consumption');
+      }
+    }
 }

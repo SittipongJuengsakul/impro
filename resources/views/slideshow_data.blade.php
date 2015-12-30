@@ -18,12 +18,12 @@
     @include('slide.building_13')
     <!-- Add Building 89 Area -->
     @include('slide.building_89')
-    <!-- Add Building other Area -->
-    @include('slide.building_other')
     <!-- Chiller Plant -->
     @include('slide.chillerplant')
     <!-- แสดงการไช้งานหน่วย-->
     @include('slide.showkwh')
+    <!-- แสดงการไช้เงินหน่วย-->
+    @include('slide.showmoney')
     </div>
 </div>
 
@@ -52,6 +52,17 @@
       url: 'http://localhost/impro-bot/public/user/slideshow/chillerplant_show_all'
     }).then(function(data) {
         chillerplant_show_dayall(data.b1,data.b2,data.b5,data.b7,data.dc1);
+    });
+    //showkwh
+    $.ajax({
+      url: 'http://localhost/impro-bot/public/user/slideshow/showkwh_all'
+    }).then(function(data) {
+        $('#showkwh_todayuse').html(data.daykwh);
+        $('#showkwh_tomonthuse').html(data.monthkwh);
+        $('#showkwh_toyearuse').html(data.yearkwh);
+        $('#showmoney_todayuse').html(data.daymoney);
+        $('#showmoney_tomonthuse').html(data.monthmoney);
+        $('#showmoney_toyearuse').html(data.yearmoney);
     });
 
 

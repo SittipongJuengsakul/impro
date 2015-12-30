@@ -5,33 +5,33 @@
                           <div class="form-group showleft">
                             วันนี้ไช้
                           </div>
-                          <div class="form-group showcenter" id="showkwh_todayuse">
+                          <div class="form-group showcenter" id="showmoney_todayuse">
 
                           </div>
                           <div class="form-group showright">
-                            kWh
+                            บาท
                           </div>
                         </form>
                         <form class="form-inline" style="text-align:center">
                           <div class="form-group showleft">
                             สะสมเดือนนี้
                           </div>
-                          <div class="form-group showcenter" id="showkwh_tomonthuse">
+                          <div class="form-group showcenter" id="showmoney_tomonthuse">
 
                           </div>
                           <div class="form-group showright">
-                            kWh
+                            บาท
                           </div>
                         </form>
                         <form class="form-inline" style="text-align:center">
                           <div class="form-group showleft">
                             สะสมปีนี้
                           </div>
-                          <div class="form-group showcenter" id="showkwh_toyearuse">
+                          <div class="form-group showcenter" id="showmoney_toyearuse">
 
                           </div>
                           <div class="form-group showright">
-                            kWh
+                            บาท
                           </div>
                         </form>
                   </div>

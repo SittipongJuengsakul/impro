@@ -125,9 +125,9 @@ class SlideController extends Controller
         public function chillerplant_show_all()
         {
           //ปีปัจจุบัน
-      	   $thisyear = Carbon::now()->format('Y');
+      	  $thisyear = Carbon::now()->format('Y');
           //เดือนปัจจุบัน
-      	   $thismonth =  (int)Carbon::now()->format('m');
+      	  $thismonth =  (int)Carbon::now()->format('m');
           //วันปัจจุบัน
           $thisday =  (int)Carbon::now()->format('d');
           $b1 = TBL::chillerplant_show_all('tbl_plant_b1',$thisyear,$thismonth,$thisday);
@@ -143,6 +143,38 @@ class SlideController extends Controller
                    'b5' => $b5,
                    'b7' => $b7,
                    'dc1' => $dc1
+                 ];
+         }catch (Exception $e){
+             $statusCode = 400;
+         }finally{
+             return Response::json($response, $statusCode);
+         }
+        }
+        public static function showkwh_all()
+        {
+          //ปีปัจจุบัน
+      	  $thisyear = Carbon::now()->format('Y');
+          //เดือนปัจจุบัน
+      	  $thismonth =  (int)Carbon::now()->format('m');
+          //วันปัจจุบัน
+          $thisday =  (int)Carbon::now()->format('d');
+          //tbl_mea_BOT
+          //วัน
+          $dayAll = TBL::showkwh_day($thisyear,$thismonth,$thisday);
+          //เดือน
+          $monthAll = TBL::showkwh_month($thisyear,$thismonth);
+          //ปี
+          $yearAll = TBL::showkwh_year($thisyear);
+          $ftEst_building = TBL::getFtMonth($thisyear,$thismonth);
+          try{
+                $statusCode = 200;
+                 $response = [
+                   'daykwh' => number_format($dayAll,2),
+                   'monthkwh' => number_format($monthAll,2),
+                   'yearkwh' => number_format($yearAll,2),
+                   'daymoney'=> number_format($dayAll*$ftEst_building,2),
+                   'monthmoney' => number_format($monthAll*$ftEst_building,2),
+                   'yearmoney'=> number_format($yearAll*$ftEst_building,2)
                  ];
          }catch (Exception $e){
              $statusCode = 400;
