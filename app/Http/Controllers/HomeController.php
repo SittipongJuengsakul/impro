@@ -127,6 +127,15 @@ class HomeController extends Controller
             $year = Input::get('year');
             $estimate = Input::get($name1);
             $Ft = Input::get($name2);
+
+            $string = $estimate;
+            $newString = '';
+            $arrString = explode(',', $string);
+            foreach ($arrString as $v) {
+                $newString .=  $v;
+            }
+
+            $estimate = $newString;
             //echo $name1." ".$name2;
             //echo $year."   ".$estimate."  ".$Ft;
             DB::update('update estimate_electriccity set estimate = ?,Ft = ? where month = ? and year = ? ', [$estimate,$Ft,$i,$year]);
@@ -206,6 +215,15 @@ class HomeController extends Controller
             $name =  'est_'.$i;
             $estimate = Input::get($name);
             $id = Input::get($name2);
+
+            $string = $estimate;
+            $newString = '';
+            $arrString = explode(',', $string);
+            foreach ($arrString as $v) {
+                $newString .=  $v;
+            }
+
+            $estimate = $newString;
             //echo $id;
             DB::update('update estimate_tool set estimate = ? where mdd_id = ? and month = ? and year = ? ', [$estimate,$id,$month,$year]);
         }
