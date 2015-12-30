@@ -464,12 +464,12 @@ function energy_show(groupnumber){
 function energy_group(energy,estenergy,groupnumber){
       var colorenergy = '';
       colorenergy = 'rgba(0,79,202,0.67)';
-      $('#container_energy_g1').highcharts({
+      $('#container_energy_g'+groupnumber).highcharts({
           chart: {
               type: 'column'
           },
           title: {
-              text: 'กลุ่มที่ 1'
+              text: 'กลุ่มที่ '+groupnumber
           },
           xAxis: {
               categories: [
