@@ -22,7 +22,7 @@
 <!--Control panel-->
 <!--<div class = "menu-trigger"></div>-->
 	<div class = "row">
-		
+
 			<div class = "form-group">
 				<label class = "control-label col-sm-1">Select Mater</label>
 				<div class = "col-sm-2">
@@ -48,7 +48,7 @@
 						<option value = "9">กันยายน</option>
 						<option value = "10">ตุลาคม</option>
 						<option value = "11">พฤศจิกายน</option>
-						<option value = "12">ธันวาคม</option>			
+						<option value = "12">ธันวาคม</option>
 					</select>
 				</div>
 				<div>
@@ -67,17 +67,17 @@
 				</div>
 					<a id="link"  style="display:none;"></a>
     				<input type="button" class="btn btn-primary" onclick="tableToExcel()" value="ส่งออกรายงาน">
-				
+
 			</div>
-		
+
 	</div><br>
 	<div class = "row">
 		<div class = "col-sm-2" id = "table">
-			
+
 		</div>
 		<div class = "col-sm-10"  >
 				<div id="container" style="min-width: 100%; height: 100%; margin: 0px auto  ;" >
-						
+
 				</div>
 				<H2 id = "total_chart" style = "color:black;text-align:center"></h2>
 		</div>
@@ -105,8 +105,10 @@
 						data:{tool_php:tool,month_php:month,year_php:year},
 						dataType:"JSON",
 						success:function(data){
-							if(data != ""){	
+							if(data != ""){
+
 									chart(data);
+
 									len = data.length;
 									//โชว์ตารางงงง
 									var table = "<table class = 'table' id = 'table_data'>"
@@ -121,11 +123,10 @@
 												total += datas.kwh;
 												table += "<tr>"
 													+"<td>"+datas.date+"</td>"
-													+"<td>"+datas.kwh+"</td>"
-													+"</tr>";	
-													
+													+"<td>"+datas.kwh.toLocaleString()+"</td>"
+													+"</tr>";
 												})
-												if(len < month_check){	
+												if(len < month_check){
 													len += 1;
 													for(len;len<=month_check;len++){
 														table += "<tr>"
@@ -140,10 +141,10 @@
 													+"</tr>"
 												+"</tbody>"
 												+"</table>";
-												
+
 									$("#table").html(table);
 									$("#total_chart").html('ค่าพลังงานการใช้ไฟฟ้ารวม '+total.toFixed(2)+' kWh');
-									//ปิดการโชว์							
+									//ปิดการโชว์
 							}
 							else{
 								alert("ไม่มีข้อมูล");
@@ -154,10 +155,10 @@
 			else{
 				alert('กรุณาเลือกข้อมูลให้ครบ');
 			}
-			
+
 		});
 /*	function chart(data){
-		
+
 		var i = 0;
 		var len = data.length;
 		var month = $("#month").val();
@@ -175,8 +176,8 @@
 						myseries.push([len,0]);
 					}
 				}
-				
-				
+
+
 			if(month == 1) month = 'มกราคม';
 			else if(month == 2) month = 'กุมภาพันธ์';
 			else if(month == 3) month = 'มีนาคม';
@@ -189,9 +190,9 @@
 			else if(month == 10) month = 'ตุลาคม';
 			else if(month == 11) month = 'พฤศจิกายน';
 			else month = 'ธันวาคม';
-		
+
 			var year = $("#year").val();
-				
+
 							$('#container').highcharts({
 								chart: {
 									type: 'column'
@@ -200,7 +201,7 @@
 									text: '<strong>ตารางแสดงข้อมูลการใช้พลังงานไฟฟ็า</strong><br><strong>เดือน '+month+' ปี '+year+'</strong>'
 								},
 								subtitle: {
-					
+
 									text: ''
 								},
 								xAxis: {
@@ -230,8 +231,8 @@
 										data:
 											myseries
 										,
-										
-											
+
+
 										dataLabels: {
 											enabled: true,
 											rotation: -360,
@@ -245,20 +246,16 @@
 											}
 										}
 									}]//series
-								});	
+								});
 		}	*/
-		
+
 						//กราฟ
 					//กราฟ
-		
-		
-			
+
+
+
 
 </script>
 <script src="{{ URL::asset('assets/js/highcharts.js') }}"></script>
 <script src="{{ URL::asset('assets/js/modules/exporting.js') }}"></script>
 @stop
-
-
-
-

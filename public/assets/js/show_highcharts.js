@@ -1,5 +1,4 @@
 function chart(data){
-		
 		var i = 0;
 		var len = data.length;
 		var month = $("#month").val();
@@ -8,7 +7,7 @@ function chart(data){
 		var myseries = [];
 				$.each(data,function(i,datas){
 					if(i<=len){
-						myseries.push([datas.date,datas.consumption]);
+						myseries.push([datas.date,datas.kwh]);
 					}
 				});
 				if(len < month_check){
@@ -17,8 +16,8 @@ function chart(data){
 						myseries.push([len,0]);
 					}
 				}
-				
-				
+
+
 			if(month == 1) month = 'มกราคม';
 			else if(month == 2) month = 'กุมภาพันธ์';
 			else if(month == 3) month = 'มีนาคม';
@@ -31,9 +30,9 @@ function chart(data){
 			else if(month == 10) month = 'ตุลาคม';
 			else if(month == 11) month = 'พฤศจิกายน';
 			else month = 'ธันวาคม';
-		
+
 			var year = $("#year").val();
-				
+
 							$('#container').highcharts({
 								chart: {
 									type: 'column'
@@ -42,7 +41,7 @@ function chart(data){
 									text: '<strong>ตารางแสดงข้อมูลการใช้พลังงานไฟฟ็า</strong><br><strong>เดือน '+month+' ปี '+year+'</strong>'
 								},
 								subtitle: {
-					
+
 									text: ''
 								},
 								xAxis: {
@@ -56,6 +55,7 @@ function chart(data){
 									}
 								},
 								yAxis: {
+
 									min: 0,
 									title: {
 										text: 'ค่าพลังงานไฟฟ้า (kWh)'
@@ -72,9 +72,9 @@ function chart(data){
 										data:
 											myseries
 										,
-										
-											
-										dataLabels: {
+
+
+										/*dataLabels: {
 											enabled: true,
 											rotation: -360,
 											color: '#051841',
@@ -85,7 +85,7 @@ function chart(data){
 												fontSize: '10px'
 												//fontFamily: 'Verdana, sans-serif'
 											}
-										}
+										}*/
 									}]//series
-								});	
-		}	
+								});
+		}

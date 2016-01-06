@@ -19,7 +19,7 @@ $("#export").click(function(){
 						data:{tool_php:tool,month_php:month,year_php:year},
 						dataType:"JSON",
 						success:function(data){
-							if(data != ""){	
+							if(data != ""){
 									chart(data);
 									len = data.length;
 									//โชว์ตารางงงง
@@ -35,9 +35,9 @@ $("#export").click(function(){
 												total += datas.consumption;
 												table += "<tr>"
 													+"<td>"+datas.date+"</td>"
-													+"<td>"+datas.consumption+"</td>"
-													+"</tr>";	
-													
+													+"<td>"+datas.consumption.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");+"</td>"
+													+"</tr>";
+
 												})
 												if(len < month_check){
 													len += 1;
@@ -58,7 +58,7 @@ $("#export").click(function(){
 												//excel(data);
 									$("#table").html(table);
 									$("#total_chart").html('ค่าพลังงานการใช้ไฟฟ้ารวม '+total.toFixed(2)+' kWh');
-									//ปิดการโชว์							
+									//ปิดการโชว์
 							}
 							else{
 								alert("ไม่มีข้อมูล");
@@ -69,5 +69,5 @@ $("#export").click(function(){
 			else{
 				alert('กรุณาเลือกข้อมูลให้ครบ');
 			}
-			
+
 		});
