@@ -143,7 +143,7 @@
 												+"</table>";
 
 									$("#table").html(table);
-									$("#total_chart").html('ค่าพลังงานการใช้ไฟฟ้ารวม '+total.toFixed(2)+' kWh');
+									$("#total_chart").html('ค่าพลังงานการใช้ไฟฟ้ารวม '+total.toLocaleString()+' kWh');
 									//ปิดการโชว์
 							}
 							else{
