@@ -52,7 +52,12 @@ class tbl_query extends Model
         ->where('estimate_tool.year',$year)
         ->where('estimate_tool.month',$month)->get();
           //$data = $dt->estimate;
-        return $before_data[0]->estimate;
+        if($before_data){
+          $result = $before_data[0]->estimate;
+        }else{
+          $result = 0;
+        }
+        return $result;
     }
     public static function getEstMonth($year,$month)
     {
