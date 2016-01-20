@@ -263,13 +263,14 @@ class tbl_query extends Model
           $arr_return = [];
           date_default_timezone_set('Asia/Bangkok');
           $timeToCurrent = date("H");
-          for($i=1;$i<=23;$i++){
+          for($i=1;$i<=24;$i++){
+            $date_query = $i-1;
             if($i<10){
-              $stm = '0'.$i.':00';
-              $etm = '0'.$i.':59';
+              $stm = '0'.$date_query.':00';
+              $etm = '0'.$date_query.':59';
             }else{
-              $stm = $i.':00';
-              $etm = $i.':59';
+              $stm = $date_query.':00';
+              $etm = $date_query.':59';
             }
             $value = DB::table($table)
             ->where('times','>=',$stm)->where('times','<=',$etm)
@@ -281,10 +282,6 @@ class tbl_query extends Model
             }
             array_push($arr_return,intval($value));
           }
-          $value = DB::table($table)
-          ->where('times','>=','00:00')->where('times','<=','00:59')
-          ->where('year',$year)->where('month',$month)->where('date',$day)->max('consumption');
-          array_push($arr_return,intval($value));
         }
         return $arr_return;
     }

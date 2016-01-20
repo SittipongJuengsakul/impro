@@ -30,6 +30,7 @@ Route::get('user/slideshow/est_energy_group_all/{nametbl}','SlideController@est_
 
 Route::get('user/report','HomeController@showdata');
 Route::post('user/submit','HomeController@submit');
+Route::get('user/test','HomeController@test');
 Route::post('user/excel_php','HomeController@excel_php');
 
 Route::get('user/form_estimate','HomeController@form_estimate');

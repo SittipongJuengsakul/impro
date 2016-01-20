@@ -125,6 +125,7 @@
 													+"<td>"+datas.date+"</td>"
 													+"<td>"+datas.kwh.toLocaleString()+"</td>"
 													+"</tr>";
+													len = datas.date;
 												})
 												if(len < month_check){
 													len += 1;
