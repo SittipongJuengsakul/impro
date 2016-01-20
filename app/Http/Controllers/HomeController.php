@@ -115,12 +115,6 @@ class HomeController extends Controller
     function get_data_db($table,$month,$year){
         if (Auth::check())
         {
-            /*$results = DB::table("tbl_".$table)
-            ->select('date',DB::raw('ROUND(MAX(kwh) - MIN(kwh),2) as kwh'))
-            ->where('month',$month)
-            ->where('year',$year)
-            ->groupBy('date')
-            ->get();*/
             $max = DB::table("tbl_".$table)
             ->select('date',DB::raw('ROUND(MAX(kwh),2) as kwh'))
             ->where('month',$month)
@@ -131,6 +125,7 @@ class HomeController extends Controller
             $min = DB::table("tbl_".$table)
             ->select('date',DB::raw('ROUND(MIN(kwh),2) as kwh'))
             ->where('month',$month)
+            ->where('kwh','>','0')
             ->where('year',$year)
             ->groupBy('date')
             ->get();
@@ -139,18 +134,6 @@ class HomeController extends Controller
                   $max[$i]->kwh = $max[$i]->kwh - $min[$i]->kwh;
                 }
               }
-          /*  for($i = 0;$i< count($max->kwh);$i++){
-              if($min->kwh[$i] > 0){
-                $max->kwh[$i] = $max->kwh[$i] - $min->kwh[$i];
-              }
-            }*
-
-            /*if(min <0){
-              $results = $max;
-            }
-            else{
-              $results = $max - $min;
-            }*/
             $results = $max;
             return $results;
 
