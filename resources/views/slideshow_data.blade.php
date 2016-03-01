@@ -47,7 +47,27 @@
   //highchart all Building
   //<div style="background:url(spinner.gif) no-repeat center center;width:32px;height:32px;"></div>
   var site_url = '{{ URL::to("/") }}';
-
+  var d = new Date();
+  var monthbotjs = d.getMonth();
+  var yearbotjs = d.getFullYear()+543;
+  var daybotjs = d.getUTCDate();
+  switch( monthbotjs ) {
+      case 0 : monthbotjs= "มกราคม"; break;
+      case 1 : monthbotjs= "กุมภาพันธ์"; break;
+      case 2 : monthbotjs= "มีนาคม"; break;
+      case 3 : monthbotjs= "เมษายน"; break;
+      case 4 : monthbotjs= "พฤภษาคม"; break;
+      case 5 : monthbotjs= "มิถุนายน"; break;
+      case 6 : monthbotjs= "กรกฏาคม"; break;
+      case 7 : monthbotjs= "สิงหาคม"; break;
+      case 8 : monthbotjs= "กันยายน"; break;
+      case 9 : monthbotjs= "ตุลาคม"; break;
+      case 10 : monthbotjs= "พฤศจิกายน"; break;
+      case 11 : monthbotjs= "ธันวาคม"; break;
+      default : monthbotjs= "ไม่พบเดือน"; break;
+  }
+  $(".month_bot").html('เดือน '+monthbotjs+' '+yearbotjs);
+  $(".daymonth_bot").html(daybotjs+' '+monthbotjs+' '+yearbotjs);
   var page_number=1;
   $(document).ready(function () {
     buildingall_show()

@@ -1,9 +1,7 @@
 <div style="background-color: white;">
             <div class="row">
                   <div class="col-md-3" style="margin-top: 50px;padding-left:20px"><h1>ค่าไฟฟ้าอาคาร 8 9</h1>
-                  <h2 style="margin-top: 0px;">เดือน <?
-                    
-                    echo $month;?> {{ Carbon\Carbon::now()->format('Y')+543 }}</h2>
+                  <h2 style="margin-top: 0px;" class="month_bot"></h2>
                     <table class="table" style="width:100%;">
                         <thead>
                             <tr>

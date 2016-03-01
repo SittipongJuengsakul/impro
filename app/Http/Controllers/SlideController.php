@@ -21,6 +21,7 @@ class SlideController extends Controller
     	$thisyear = Carbon::now()->format('Y');
         //เดือนปัจจุบัน
     	$thismonth =  (int)Carbon::now()->format('m');
+      $realmonth = date('m');
         //วันปัจจุบัน
         $thisday =  (int)Carbon::now()->format('d');
         //เป้าหมายการไช้ไฟฟ้าของเดือนนี้ ทุกตึก
@@ -29,8 +30,9 @@ class SlideController extends Controller
         $ftEst = TBL::getFtMonth($thisyear,$thismonth);
         //เดือนที่แล้ว
         $beformonth = $thismonth-1;
+        $month=$realmonth;
+        /*
         switch( $thismonth ) {
-
             case 1 : $month= "มกราคม"; break;
             case 2 : $month= "กุมภาพันธ์"; break;
             case 3 : $month= "มีนาคม"; break;
@@ -43,10 +45,8 @@ class SlideController extends Controller
             case 10 : $month= "ตุลาคม"; break;
             case 11 : $month= "พฤศจิกายน"; break;
             case 12 : $month= "ธันวาคม"; break;
-
             default : $month= ""; break;
-
-        }
+        }*/
         return view('slideshow_data',compact('month','EstMonthtoUse','thismonth','All_Used','tbl_EstArray','totalEst','ftEst','Building','Building1_arr'));
 
       }
