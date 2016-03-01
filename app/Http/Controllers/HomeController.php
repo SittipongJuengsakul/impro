@@ -112,6 +112,7 @@ class HomeController extends Controller
       //return $max[0]->kwh;
       dd(count($max));
     }
+
     function get_data_db($table,$month,$year){
         if (Auth::check())
         {
@@ -131,7 +132,9 @@ class HomeController extends Controller
             ->get();
               for($i=0;$i<count($min);$i++){
                 if($min[$i]->kwh > 0){
-                  $max[$i]->kwh = $max[$i]->kwh - $min[$i]->kwh;
+                  $total = 0;
+                  $total = $max[$i]->kwh - $min[$i]->kwh;
+                  $max[$i]->kwh = $total;
                 }
               }
             $results = $max;

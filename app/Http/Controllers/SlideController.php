@@ -29,8 +29,25 @@ class SlideController extends Controller
         $ftEst = TBL::getFtMonth($thisyear,$thismonth);
         //เดือนที่แล้ว
         $beformonth = $thismonth-1;
+        switch( $thismonth ) {
 
-        return view('slideshow_data',compact('EstMonthtoUse','thismonth','All_Used','tbl_EstArray','totalEst','ftEst','Building','Building1_arr'));
+            case 1 : $month= "มกราคม"; break;
+            case 2 : $month= "กุมภาพันธ์"; break;
+            case 3 : $month= "มีนาคม"; break;
+            case 4 : $month= "เมษายน"; break;
+            case 5 : $month= "พฤภษาคม"; break;
+            case 6 : $month= "มิถุนายน"; break;
+            case 7 : $month= "กรกฏาคม"; break;
+            case 8 : $month= "สิงหาคม"; break;
+            case 9 : $month= "กันยายน"; break;
+            case 10 : $month= "ตุลาคม"; break;
+            case 11 : $month= "พฤศจิกายน"; break;
+            case 12 : $month= "ธันวาคม"; break;
+
+            default : $month= ""; break;
+
+        }
+        return view('slideshow_data',compact('month','EstMonthtoUse','thismonth','All_Used','tbl_EstArray','totalEst','ftEst','Building','Building1_arr'));
 
       }
         public function building_all_data(){

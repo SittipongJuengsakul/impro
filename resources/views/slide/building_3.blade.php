@@ -2,26 +2,7 @@
             <div class="row">
                   <div class="col-md-3" style="margin-top: 50px;padding-left:20px"><h1>ค่าไฟฟ้าอาคาร 3</h1>
                   <h2 style="margin-top: 0px;">เดือน <?
-                    $score = 4;
-
-                    switch( $thismonth ) {
-
-                        case 1 : $month= "มกราคม"; break;
-                        case 2 : $month= "กุมภาพันธ์"; break;
-                        case 3 : $month= "มีนาคม"; break;
-                        case 4 : $month= "เมษายน"; break;
-                        case 5 : $month= "พฤภษาคม"; break;
-                        case 6 : $month= "มิถุนายน"; break;
-                        case 7 : $month= "กรกฏาคม"; break;
-                        case 8 : $month= "สิงหาคม"; break;
-                        case 9 : $month= "กันยายน"; break;
-                        case 10 : $month= "ตุลาคม"; break;
-                        case 11 : $month= "พฤศจิกายน"; break;
-                        case 12 : $month= "ธันวาคม"; break;
-
-                        default : $month= ""; break;
-
-                    }
+                    
 
                     echo $month;?> {{ Carbon\Carbon::now()->format('Y')+543 }}</h2>
                     <table class="table" style="width:100%;">

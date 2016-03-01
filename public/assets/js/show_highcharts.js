@@ -6,8 +6,18 @@ function chart(data){
 		var month_check = new Date(year,month,0).getDate();
 		var myseries = [];
 				$.each(data,function(i,datas){
+					var dlen = 1;
+					for(dlen;dlen<data[0].date;dlen++){
+						myseries.push([dlen,0]);
+					}
 					if(i<=len){
-						myseries.push([datas.date,datas.kwh]);
+						if(datas.kwh<=0){
+							var kwhval = 0;
+							data.kwh=0;
+						}else{
+							var kwhval = datas.kwh;
+						}
+						myseries.push([datas.date,kwhval]);
 					}
 				});
 				if(len < month_check){
