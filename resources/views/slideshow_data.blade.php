@@ -66,8 +66,13 @@
       case 11 : monthbotjs= "ธันวาคม"; break;
       default : monthbotjs= "ไม่พบเดือน"; break;
   }
-  $(".month_bot").html('เดือน '+monthbotjs+' '+yearbotjs);
-  $(".daymonth_bot").html(daybotjs+' '+monthbotjs+' '+yearbotjs);
+  alert(daybotjs+' '+monthbotjs+' '+yearbotjs);
+  var bball = document.getElementById("month_bball");
+  bball.innerHTML = 'เดือน '+monthbotjs+' '+yearbotjs;
+  var bbaone = document.getElementById("month_bbaone");
+  bbaone.innerHTML = 'เดือน '+monthbotjs+' '+yearbotjs;
+  var chiller_daymoth = document.getElementById("daymonth_bot_chiiler");
+  chiller_daymoth.innerHTML = daybotjs+' '+monthbotjs+' '+yearbotjs;
   var page_number=1;
   $(document).ready(function () {
     buildingall_show()
