@@ -63,7 +63,7 @@ class SlideController extends Controller
           $b1 = TBL::Building1($thisyear,$thismonth);
           //ตึก 2
           //$b2 = TBL::Building2($thisyear,$thismonth); b2 ไม่มี
-          $b2 = 100;
+          $b2 = TBL::Building2($thisyear,$thismonth);;
           //ตึก 3 4 5 6
           $b3 = TBL::Building3456($thisyear,$thismonth);
           //ตึก 7
@@ -112,7 +112,7 @@ class SlideController extends Controller
           //วันปัจจุบัน
           $thisday =  (int)Carbon::now()->format('d');
           $real_use = TBL::realuse_building($building_number,$thisyear,$thismonth);
-          $est_building = TBL::getEstDataInTbl('tbl_building_b'.$building_number,$thisyear,$thismonth);
+          $est_building = TBL::getEstDataInTbl('tbl_mea_b'.$building_number,$thisyear,$thismonth);
           $ftEst_building = TBL::getFtMonth($thisyear,$thismonth);
           $tbl_LP_B = TBL::tbl_LP_B($building_number,$thisyear,$thismonth);
           $tbl_AIR_B = TBL::tbl_AIR_B($building_number,$thisyear,$thismonth);
