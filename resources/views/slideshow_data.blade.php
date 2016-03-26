@@ -34,6 +34,9 @@
     @include('slide.energyg11')
     @include('slide.energyg12')
     </div>
+    <div class="col-md-12" style="height: 300px;position: fixed;background-image: url('http://localhost/impro-bot/public/assets/img/bg-bot.jpg');">
+
+    </div>
 </div>
 
 

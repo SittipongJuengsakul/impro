@@ -1,4 +1,4 @@
-<div style="background-color: white;">
+<div style="background-img: url('http://localhost/impro-bot/public/assets/img/bg-bot.jpg')">
             <div class="row">
                   <div class="col-md-3" style="margin-top: 50px;padding-left:20px"><h1>ค่าไฟฟ้าอาคาร 1</h1>
                     <?php
