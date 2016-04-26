@@ -265,7 +265,7 @@ class tbl_query extends Model
           $timeToCurrent = date("H");
           for($i=1;$i<=24;$i++){
             $date_query = $i-1;
-            if($i<10){
+            if($i<=10){
               $stm = '0'.$date_query.':00';
               $etm = '0'.$date_query.':59';
             }else{
@@ -275,6 +275,7 @@ class tbl_query extends Model
             $value = DB::table($table)
             ->where('times','>=',$stm)->where('times','<=',$etm)
             ->where('year',$year)->where('month',$month)->where('date',$day)->max('consumption');
+           // echo $value; die();
             if($value<=0||$value==null){
               $value=0;
             }else{
