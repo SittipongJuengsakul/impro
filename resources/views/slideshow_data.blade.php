@@ -69,7 +69,7 @@
       case 11 : monthbotjs= "ธันวาคม"; break;
       default : monthbotjs= "ไม่พบเดือน"; break;
   }
-  alert(daybotjs+' '+monthbotjs+' '+yearbotjs);
+  //alert(daybotjs+' '+monthbotjs+' '+yearbotjs);
   var bball = document.getElementById("month_bball");
   bball.innerHTML = 'เดือน '+monthbotjs+' '+yearbotjs;
   var bbaone = document.getElementById("month_bbaone");
