@@ -78,7 +78,7 @@
   chiller_daymoth.innerHTML = daybotjs+' '+monthbotjs+' '+yearbotjs;
   var page_number=1;
   $(document).ready(function () {
-    buildingall_show()
+    buildingall_show();
     building1_show();
     chiller_show();
     showkwnmoney();
